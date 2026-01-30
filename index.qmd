@@ -10,13 +10,14 @@ core_packages <- get_core_packages()
 ```
 
 ::: {.hero-section}
-![](images/logo_dark.png){.hero-logo}
+![](images/logo_dark.png){.hero-logo .logo-light}
+![](images/logo_light.png){.hero-logo .logo-dark}
 
-# ggseg
+# ggseg 
 
 [Visualize brain atlas data in R]{.tagline}
 
-[Get Started](packages.qmd){.btn-gradient}
+[Get Started](packages.qmd){.btn .btn-primary}
 :::
 
 ## Quick Install

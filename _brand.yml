@@ -29,7 +29,9 @@ color:
   danger: "#CD6689"
 
 logo:
-  medium: images/logo_dark.png
+  medium:
+    light: images/logo_dark.png
+    dark: images/logo_light.png
 
 typography:
   fonts:

@@ -8,9 +8,9 @@ website:
   site-url: https://ggseg.github.io
   repo-url: https://github.com/ggseg/ggseg.github.io
   repo-actions: [edit, issue]
+  favicon: images/favico.png
 
   navbar:
-    background: dark
     title: "ggseg"
     left:
       - text: "Packages"
