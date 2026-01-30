@@ -1,0 +1,12 @@
+/.quarto/
+/_site/
+/_data/
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.html
+!news/posts/**/*.html
+.DS_Store
+
+**/*.quarto_ipynb

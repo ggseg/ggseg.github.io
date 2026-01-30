@@ -1,0 +1,55 @@
+meta:
+  name: ggseg
+  link: https://ggseg.github.io
+
+color:
+  palette:
+    teal-dark: "#29393e"
+    teal-light: "#a8c5cb"
+    mauve: "#c7bbc9"
+    plum: "#5e3c58"
+    taupe: "#d2cbc9"
+    slate-900: "#1a2a2e"
+    white: "#f2f0ef"
+  primary:
+    light: teal-dark
+    dark: teal-light
+  secondary:
+    light: plum
+    dark: mauve
+  link:
+    light: teal-dark
+    dark: teal-light
+  foreground:
+    light: teal-dark
+    dark: taupe
+  background:
+    light: white
+    dark: teal-dark
+
+typography:
+  fonts:
+    - family: Inter
+      source: google
+    - family: JetBrains Mono
+      source: google
+  base:
+    family: Inter
+    size: 1rem
+  headings:
+    family: Inter
+    weight: semi-bold
+  monospace: JetBrains Mono
+  monospace-inline:
+    background-color:
+      light: mauve
+      dark: slate-900
+  monospace-block:
+    background-color:
+      light: mauve
+      dark: slate-900
+
+defaults:
+  bootstrap:
+    defaults:
+      link-decoration: none

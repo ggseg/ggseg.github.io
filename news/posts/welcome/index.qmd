@@ -1,0 +1,36 @@
+---
+title: "Welcome to the ggseg website"
+author: "ggseg team"
+date: "2024-01-29"
+categories: [news, announcements]
+---
+
+Welcome to the new ggseg website. This site provides documentation, resources, and news about the ggseg suite of R packages for brain atlas visualization.
+
+## What is ggseg?
+
+The ggseg suite provides tools for visualizing brain atlas data in R:
+
+- **ggseg**: 2D brain atlas plots using ggplot2
+- **ggseg3d**: Interactive 3D brain atlas plots using plotly
+- **ggsegExtra**: Tools for creating custom brain atlases
+
+## Getting Started
+
+Install the core packages from R-universe:
+
+```r
+install.packages(
+ c("ggseg", "ggseg3d", "ggsegExtra"),
+ repos = c(
+   "https://ggseg.r-universe.dev",
+   "https://cloud.r-project.org"
+  )
+)
+```
+
+Check out the [packages page](/packages.qmd) for the full list of available atlas packages.
+
+## Stay Updated
+
+Follow our [GitHub Discussions](https://github.com/orgs/ggseg/discussions) for the latest updates and community discussions.

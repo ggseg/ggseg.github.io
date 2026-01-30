@@ -1,0 +1,75 @@
+---
+title: "ggseg"
+subtitle: "Brain atlas visualization in R"
+toc: false
+page-layout: full
+---
+
+```{r}
+#| include: false
+source("R/fetch-data.R")
+core_packages <- get_core_packages()
+```
+
+::: {.hero-section}
+# ggseg
+
+[Visualize brain atlas data in R]{.tagline}
+
+[Get Started](packages.qmd){.btn-gradient}
+:::
+
+## Quick Install
+
+```r
+# Install from R-universe
+install.packages(
+ c("ggseg", "ggseg3d", "ggsegExtra"),
+ repos = c(
+   "https://ggseg.r-universe.dev",
+   "https://cloud.r-project.org"
+  )
+)
+```
+
+## Core Packages {.section-header}
+
+The ggseg suite provides tools for visualizing brain atlas data in R, built on top of ggplot2 and plotly.
+
+::: {.package-grid}
+
+```{r}
+#| echo: false
+#| output: asis
+for (i in seq_len(nrow(core_packages))) {
+  pkg <- core_packages[i, ]
+  cat(sprintf('
+::: {.package-card}
+### %s
+[v%s]{.version}
+
+[%s]{.description}
+
+::: {.links}
+[Documentation](%s){target="_blank"}
+[GitHub](%s){target="_blank"}
+:::
+:::
+', pkg$package, pkg$version, pkg$title, pkg$pkgdown_url, pkg$github_url))
+}
+```
+
+:::
+
+## Atlas Packages
+
+The ggseg ecosystem includes `r nrow(get_atlas_packages())` atlas packages providing data for different brain parcellations.
+
+[View All Packages](packages.qmd){.btn-gradient}
+
+## Community
+
+Join the discussion and get help from the community.
+
+- [GitHub Discussions](https://github.com/orgs/ggseg/discussions) - Ask questions and share ideas
+- [GitHub Issues](https://github.com/ggseg/ggseg/issues) - Report bugs and request features

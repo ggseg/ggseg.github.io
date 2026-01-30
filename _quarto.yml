@@ -1,0 +1,54 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "ggseg"
+  description: "Visualize brain atlas data in R"
+  site-url: https://ggseg.github.io
+  repo-url: https://github.com/ggseg/ggseg.github.io
+  repo-actions: [edit, issue]
+
+  navbar:
+    background: dark
+    title: "ggseg"
+    left:
+      - text: "Packages"
+        href: packages.qmd
+      - text: "Contributors"
+        href: contributors.qmd
+      - text: "Funding"
+        href: funding.qmd
+      - text: "News"
+        href: news/index.qmd
+    right:
+      - icon: chat-dots
+        href: https://github.com/orgs/ggseg/discussions
+        aria-label: Discussions
+      - icon: github
+        href: https://github.com/ggseg
+        aria-label: GitHub
+
+  page-footer:
+    left: |
+      Made with [Quarto](https://quarto.org/)
+    center: |
+      ggseg suite &copy; 2024
+    right:
+      - icon: github
+        href: https://github.com/ggseg
+
+brand: _brand.yml
+
+format:
+  html:
+    theme:
+      dark: styles.scss
+      light: styles.scss
+    theme-toggle: true
+    toc: false
+    code-copy: true
+    code-overflow: wrap
+
+execute:
+  freeze: auto

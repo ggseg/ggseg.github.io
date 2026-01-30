@@ -1,0 +1,104 @@
+---
+title: "Packages"
+subtitle: "The complete ggseg ecosystem"
+---
+
+```{r}
+#| include: false
+source("R/fetch-data.R")
+core_packages <- get_core_packages()
+atlas_packages <- get_atlas_packages()
+```
+
+## Core Packages {.section-header}
+
+The foundational packages for brain atlas visualization in R.
+
+::: {.package-grid}
+
+```{r}
+#| echo: false
+#| output: asis
+for (i in seq_len(nrow(core_packages))) {
+  pkg <- core_packages[i, ]
+  desc <- if (!is.na(pkg$description)) pkg$description else pkg$title
+  status_class <- if (!is.na(pkg$status) && pkg$status == "success") "status-ok" else "status-fail"
+  status_icon <- if (!is.na(pkg$status) && pkg$status == "success") "OK" else "!"
+  logo_html <- if ("logo" %in% names(pkg) && !is.na(pkg$logo)) {
+    sprintf('![](%s){.pkg-logo}', pkg$logo)
+  } else {
+    ""
+  }
+  cat(sprintf('
+::: {.package-card}
+%s
+
+### %s
+[v%s]{.version} [%s]{.build-status .%s}
+
+[%s]{.description}
+
+::: {.links}
+[Documentation](%s){target="_blank"}
+[GitHub](%s){target="_blank"}
+[R-universe](https://ggseg.r-universe.dev/%s){target="_blank"}
+:::
+:::
+', logo_html, pkg$package, pkg$version, status_icon, status_class, desc, pkg$pkgdown_url, pkg$github_url, pkg$package))
+}
+```
+
+:::
+
+## Atlas Packages {.section-header}
+
+Brain atlas datasets compatible with ggseg and ggseg3d. Each package provides polygon and/or mesh data for specific brain parcellations.
+
+### Installation
+
+Install any atlas package from R-universe:
+
+```r
+install.packages(
+ "ggsegYeo2011",
+ repos = c(
+   "https://ggseg.r-universe.dev",
+   "https://cloud.r-project.org"
+  )
+)
+```
+
+### Available Atlases
+
+::: {.atlas-grid}
+
+```{r}
+#| echo: false
+#| output: asis
+for (i in seq_len(nrow(atlas_packages))) {
+  pkg <- atlas_packages[i, ]
+  status_class <- if (!is.na(pkg$status) && pkg$status == "success") "status-ok" else "status-fail"
+  status_icon <- if (!is.na(pkg$status) && pkg$status == "success") "OK" else "!"
+  logo_html <- if ("logo" %in% names(pkg) && !is.na(pkg$logo)) {
+    sprintf('![](%s){.pkg-logo}', pkg$logo)
+  } else {
+    ""
+  }
+  cat(sprintf('
+::: {.atlas-card}
+%s
+
+#### %s
+[v%s]{.version} [%s]{.build-status .%s}
+
+[Docs](%s){target="_blank"} | [GitHub](%s){target="_blank"}
+:::
+', logo_html, pkg$package, pkg$version, status_icon, status_class, pkg$pkgdown_url, pkg$github_url))
+}
+```
+
+:::
+
+## All Packages on R-universe
+
+Browse all ggseg packages on [R-universe](https://ggseg.r-universe.dev/builds){target="_blank"} for detailed build status, documentation, and installation instructions.

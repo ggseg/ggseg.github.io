@@ -1,0 +1,195 @@
+/*-- scss:defaults --*/
+
+$gradient-dark: #29393e;
+$gradient-accent: #5e3c58;
+
+/*-- scss:rules --*/
+
+.hero-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, $gradient-accent, $gradient-dark);
+  color: white;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-section .tagline {
+  font-size: 1.5rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+
+.package-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.package-card {
+  border: 1px solid var(--bs-primary);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  background: var(--bs-body-bg);
+}
+
+.package-card:hover {
+  transform: translateY(-4px);
+}
+
+.package-card .pkg-logo {
+  float: right;
+  width: 80px;
+  height: auto;
+  margin: 0 0 1rem 1rem;
+}
+
+.package-card h3 {
+  margin-top: 0;
+  color: var(--bs-primary);
+}
+
+.package-card .version {
+  display: inline-block;
+  background: linear-gradient(135deg, $gradient-dark, $gradient-accent);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+}
+
+.package-card .description {
+  color: var(--bs-secondary-color);
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.package-card .links {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.package-card .links a {
+  font-size: 0.875rem;
+}
+
+.contributor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.contributor-card {
+  text-align: center;
+  padding: 1rem;
+}
+
+.contributor-card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 0.75rem;
+  border: 3px solid var(--bs-primary);
+}
+
+.contributor-card .name {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.contributor-card .contributions {
+  font-size: 0.85rem;
+  color: var(--bs-secondary-color);
+}
+
+.featured-packages {
+  margin: 3rem 0;
+}
+
+.section-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--bs-primary);
+}
+
+.btn-gradient {
+  background: linear-gradient(135deg, $gradient-dark, $gradient-accent);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: opacity 0.2s;
+}
+
+.btn-gradient:hover {
+  opacity: 0.9;
+  color: white;
+}
+
+.atlas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.atlas-card {
+  border: 1px solid var(--bs-primary);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background: var(--bs-body-bg);
+  transition: border-color 0.2s;
+}
+
+.atlas-card:hover {
+  border-color: var(--bs-secondary);
+}
+
+.atlas-card h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+}
+
+.atlas-card .pkg-logo {
+  float: right;
+  width: 60px;
+  height: auto;
+  margin: 0 0 0.5rem 0.5rem;
+}
+
+.atlas-card .version {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.5rem;
+}
+
+.build-status {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+.status-ok {
+  background-color: #198754;
+  color: white;
+}
+
+.status-fail {
+  background-color: #dc3545;
+  color: white;
+}
