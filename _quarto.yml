@@ -15,6 +15,8 @@ website:
     left:
       - text: "Packages"
         href: packages.qmd
+      - text: "Docs"
+        href: docs.qmd
       - text: "Contributors"
         href: contributors.qmd
       - text: "Funding"

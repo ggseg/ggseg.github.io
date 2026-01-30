@@ -1,0 +1,15 @@
+{
+  "hash": "dc7105b1cc191cf80b77278705442b3d",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Documentation\"\n---\n\n\n\nVignettes and tutorials from ggseg packages. Each links to the full article on the package documentation site.\n\n\n## ggseg {.section-header}\n\n- [Adding external data to ggseg plotting](https://ggseg.github.io/ggseg/articles/externalData.html){target=\"_blank\"}\n- [Read in files from FreeSurfer](https://ggseg.github.io/ggseg/articles/freesurfer_files.html){target=\"_blank\"}\n- [Using geom_brain](https://ggseg.github.io/ggseg/articles/ggseg.html){target=\"_blank\"}\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

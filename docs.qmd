@@ -1,0 +1,27 @@
+---
+title: "Documentation"
+---
+
+```{r}
+#| include: false
+source("R/fetch-data.R")
+vignettes <- get_vignettes()
+packages <- unique(vignettes$package)
+```
+
+Vignettes and tutorials from ggseg packages. Each links to the full article on the package documentation site.
+
+```{r}
+#| echo: false
+#| output: asis
+
+for (pkg in packages) {
+  pkg_vigs <- vignettes[vignettes$package == pkg, ]
+  cat(sprintf('\n## %s {.section-header}\n\n', pkg))
+  for (i in seq_len(nrow(pkg_vigs))) {
+    vig <- pkg_vigs[i, ]
+    cat(sprintf('- [%s](%s){target="_blank"}\n', vig$title, vig$url))
+  }
+  cat('\n')
+}
+```
