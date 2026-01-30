@@ -6,9 +6,8 @@ color:
   palette:
     teal-dark: "#29393e"
     teal-light: "#a8c5cb"
-    mauve: "#c7bbc9"
+    mauve: "#cec4cc"
     plum: "#5e3c58"
-    taupe: "#d2cbc9"
     slate-900: "#1a2a2e"
     white: "#f2f0ef"
   primary:
@@ -17,15 +16,20 @@ color:
   secondary:
     light: plum
     dark: mauve
-  link:
-    light: teal-dark
-    dark: teal-light
+  tertiary:
+    light: teal-light
+    dark: teal-dark
   foreground:
-    light: teal-dark
-    dark: taupe
+    light: slate-900
+    dark: white
   background:
     light: white
-    dark: teal-dark
+    dark: slate-900
+  success: "#478f76"
+  danger: "#CD6689"
+
+logo:
+  medium: images/logo_dark.png
 
 typography:
   fonts:
@@ -33,23 +37,12 @@ typography:
       source: google
     - family: JetBrains Mono
       source: google
-  base:
-    family: Inter
-    size: 1rem
-  headings:
-    family: Inter
-    weight: semi-bold
+  link:
+    color:
+      light: teal-dark
+      dark: teal-light
   monospace: JetBrains Mono
-  monospace-inline:
-    background-color:
-      light: mauve
-      dark: slate-900
   monospace-block:
     background-color:
       light: mauve
-      dark: slate-900
-
-defaults:
-  bootstrap:
-    defaults:
-      link-decoration: none
+      dark: teal-dark

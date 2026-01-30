@@ -27,8 +27,8 @@ for (i in seq_len(nrow(contributors))) {
   cat(sprintf(
     '
 ::: {.contributor-card}
-[![](%s)](https://github.com/%s){target="_blank"}
-[%s]{.name}  
+[![](%s)](https://github.com/%s){target="_blank"}  
+[%s]{.name}   
 [%d contributions]{.contributions}
 :::
 ',

@@ -1,6 +1,5 @@
 ---
 title: "Packages"
-subtitle: "The complete ggseg ecosystem"
 ---
 
 ```{r}
@@ -39,12 +38,10 @@ for (i in seq_len(nrow(core_packages))) {
 [%s]{.description}
 
 ::: {.links}
-[Documentation](%s){target="_blank"}
-[GitHub](%s){target="_blank"}
-[R-universe](https://ggseg.r-universe.dev/%s){target="_blank"}
+[Docs](%s){target="_blank"} | [GitHub](%s){target="_blank"}
 :::
 :::
-', logo_html, pkg$package, pkg$version, status_icon, status_class, desc, pkg$pkgdown_url, pkg$github_url, pkg$package))
+', logo_html, pkg$package, pkg$version, status_icon, status_class, desc, pkg$pkgdown_url, pkg$github_url))
 }
 ```
 

@@ -1,6 +1,4 @@
 ---
-title: "ggseg"
-subtitle: "Brain atlas visualization in R"
 toc: false
 page-layout: full
 ---
@@ -12,6 +10,8 @@ core_packages <- get_core_packages()
 ```
 
 ::: {.hero-section}
+![](images/logo_dark.png){.hero-logo}
+
 # ggseg
 
 [Visualize brain atlas data in R]{.tagline}
@@ -43,7 +43,8 @@ The ggseg suite provides tools for visualizing brain atlas data in R, built on t
 #| output: asis
 for (i in seq_len(nrow(core_packages))) {
   pkg <- core_packages[i, ]
-  cat(sprintf('
+  cat(sprintf(
+    '
 ::: {.package-card}
 ### %s
 [v%s]{.version}
@@ -55,7 +56,13 @@ for (i in seq_len(nrow(core_packages))) {
 [GitHub](%s){target="_blank"}
 :::
 :::
-', pkg$package, pkg$version, pkg$title, pkg$pkgdown_url, pkg$github_url))
+',
+    pkg$package,
+    pkg$version,
+    pkg$title,
+    pkg$pkgdown_url,
+    pkg$github_url
+  ))
 }
 ```
 

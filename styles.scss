@@ -1,17 +1,19 @@
-/*-- scss:defaults --*/
-
-$gradient-dark: #29393e;
-$gradient-accent: #5e3c58;
-
 /*-- scss:rules --*/
 
 .hero-section {
   text-align: center;
   padding: 4rem 2rem;
-  background: linear-gradient(135deg, $gradient-accent, $gradient-dark);
+  background: linear-gradient(135deg, $brand-plum, var(--bs-tertiary-color));
+  ;
   color: white;
   border-radius: 1rem;
   margin-bottom: 2rem;
+}
+
+.hero-logo {
+  width: 150px;
+  height: auto;
+  margin-bottom: 1.5rem;
 }
 
 .hero-section h1 {
@@ -58,7 +60,7 @@ $gradient-accent: #5e3c58;
 
 .package-card .version {
   display: inline-block;
-  background: linear-gradient(135deg, $gradient-dark, $gradient-accent);
+  background: linear-gradient(135deg, $brand-plum, var(--bs-tertiary-color));
   color: white;
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
@@ -123,7 +125,7 @@ $gradient-accent: #5e3c58;
 }
 
 .btn-gradient {
-  background: linear-gradient(135deg, $gradient-dark, $gradient-accent);
+  background: $brand-plum;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -185,11 +187,11 @@ $gradient-accent: #5e3c58;
 }
 
 .status-ok {
-  background-color: #198754;
+  background-color: var(--bs-success);
   color: white;
 }
 
 .status-fail {
-  background-color: #dc3545;
+  background-color: var(--bs-danger);
   color: white;
 }

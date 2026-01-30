@@ -42,9 +42,7 @@ brand: _brand.yml
 
 format:
   html:
-    theme:
-      dark: styles.scss
-      light: styles.scss
+    theme: [styles.scss]
     theme-toggle: true
     toc: false
     code-copy: true
