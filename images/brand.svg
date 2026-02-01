@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   viewBox="0 0 773.49849 892.74776"
-   width="773.49847"
+   viewBox="0 0 773.498 892.74776"
+   width="773.49799"
    height="892.74774"
    version="1.1"
    id="svg758"
@@ -23,8 +23,8 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="0.20589599"
-     inkscape:cx="-1061.2154"
-     inkscape:cy="-172.41715"
+     inkscape:cx="-1002.9336"
+     inkscape:cy="3392.4895"
      inkscape:window-width="1479"
      inkscape:window-height="762"
      inkscape:window-x="0"
@@ -914,7 +914,10 @@
            transform="translate(-1020.1001,-317.11109)" />
       </g>
       <g
-         id="g1082">
+         id="g1082"
+         inkscape:export-filename="favico.png"
+         inkscape:export-xdpi="20.298697"
+         inkscape:export-ydpi="20.298697">
         <path
            id="path1033"
            style="opacity:1;fill:#13293a;fill-opacity:1;stroke-width:1"

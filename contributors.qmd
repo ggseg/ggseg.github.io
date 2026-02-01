@@ -1,13 +1,16 @@
 ---
 title: "Contributors"
 subtitle: "The people behind ggseg"
----
+include-after-body:
+  - text: |
+      <script type="module">
+        import { getContributors } from './js/api.js';
+        import { renderContributors } from './js/render.js';
 
-```{r}
-#| include: false
-source("R/fetch-data.R")
-contributors <- get_contributors()
-```
+        const container = document.getElementById('contributors-grid');
+        getContributors().then(contributors => renderContributors(contributors, container));
+      </script>
+---
 
 ## Core Team
 
@@ -17,29 +20,8 @@ The ggseg suite is primarily developed and maintained by [Athanasia Mo Mowinckel
 
 Thank you to everyone who has contributed to the ggseg ecosystem.
 
-::: {.contributor-grid}
-
-```{r}
-#| echo: false
-#| output: asis
-for (i in seq_len(nrow(contributors))) {
-  contrib <- contributors[i, ]
-  cat(sprintf(
-    '
-::: {.contributor-card}
-[![](%s)](https://github.com/%s){target="_blank"}  
-[%s]{.name}   
-[%d contributions]{.contributions}
-:::
-',
-    contrib$avatar_url,
-    contrib$user,
-    contrib$user,
-    contrib$contributions
-  ))
-}
-```
-
+::: {#contributors-grid .contributor-grid}
+Loading contributors...
 :::
 
 ## How to Contribute

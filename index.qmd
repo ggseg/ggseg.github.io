@@ -1,19 +1,25 @@
 ---
 toc: false
 page-layout: full
----
+include-after-body:
+  - text: |
+      <script type="module">
+        import { getCorePackages, getAtlasPackages } from './js/api.js';
+        import { renderCorePackages } from './js/render.js';
 
-```{r}
-#| include: false
-source("R/fetch-data.R")
-core_packages <- get_core_packages()
-```
+        const coreContainer = document.getElementById('core-packages-grid');
+        const atlasCount = document.getElementById('atlas-count');
+
+        getCorePackages().then(pkgs => renderCorePackages(pkgs, coreContainer));
+        getAtlasPackages().then(pkgs => { atlasCount.textContent = pkgs.length; });
+      </script>
+---
 
 ::: {.hero-section}
 ![](images/logo_dark.png){.hero-logo .logo-light}
 ![](images/logo_light.png){.hero-logo .logo-dark}
 
-# ggseg 
+# ggseg
 
 [Visualize brain atlas data in R]{.tagline}
 
@@ -37,41 +43,13 @@ install.packages(
 
 The ggseg suite provides tools for visualizing brain atlas data in R, built on top of ggplot2 and plotly.
 
-::: {.package-grid}
-
-```{r}
-#| echo: false
-#| output: asis
-for (i in seq_len(nrow(core_packages))) {
-  pkg <- core_packages[i, ]
-  cat(sprintf(
-    '
-::: {.package-card}
-### %s
-[v%s]{.version}
-
-[%s]{.description}
-
-::: {.links}
-[Documentation](%s){target="_blank"}
-[GitHub](%s){target="_blank"}
-:::
-:::
-',
-    pkg$package,
-    pkg$version,
-    pkg$title,
-    pkg$pkgdown_url,
-    pkg$github_url
-  ))
-}
-```
-
+::: {#core-packages-grid .package-grid}
+Loading packages...
 :::
 
 ## Atlas Packages
 
-The ggseg ecosystem includes `r nrow(get_atlas_packages())` atlas packages providing data for different brain parcellations.
+The ggseg ecosystem includes []{#atlas-count} atlas packages providing data for different brain parcellations.
 
 [View All Packages](packages.qmd){.btn-gradient}
 

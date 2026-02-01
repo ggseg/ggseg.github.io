@@ -1,50 +1,25 @@
 ---
 title: "Packages"
----
+include-after-body:
+  - text: |
+      <script type="module">
+        import { getCorePackages, getAtlasPackages } from './js/api.js';
+        import { renderCorePackages, renderAtlasPackages } from './js/render.js';
 
-```{r}
-#| include: false
-source("R/fetch-data.R")
-core_packages <- get_core_packages()
-atlas_packages <- get_atlas_packages()
-```
+        const coreContainer = document.getElementById('core-packages-grid');
+        const atlasContainer = document.getElementById('atlas-packages-grid');
+
+        getCorePackages().then(pkgs => renderCorePackages(pkgs, coreContainer));
+        getAtlasPackages().then(pkgs => renderAtlasPackages(pkgs, atlasContainer));
+      </script>
+---
 
 ## Core Packages {.section-header}
 
 The foundational packages for brain atlas visualization in R.
 
-::: {.package-grid}
-
-```{r}
-#| echo: false
-#| output: asis
-for (i in seq_len(nrow(core_packages))) {
-  pkg <- core_packages[i, ]
-  desc <- if (!is.na(pkg$description)) pkg$description else pkg$title
-  status_class <- if (!is.na(pkg$status) && pkg$status == "success") "status-ok" else "status-fail"
-  status_icon <- if (!is.na(pkg$status) && pkg$status == "success") "OK" else "!"
-  logo_html <- if ("logo" %in% names(pkg) && !is.na(pkg$logo)) {
-    sprintf('![](%s){.pkg-logo}', pkg$logo)
-  } else {
-    ""
-  }
-  cat(sprintf('
-::: {.package-card}
-%s
-
-### %s
-[v%s]{.version} [%s]{.build-status .%s}
-
-[%s]{.description}
-
-::: {.links}
-[Docs](%s){target="_blank"} | [GitHub](%s){target="_blank"}
-:::
-:::
-', logo_html, pkg$package, pkg$version, status_icon, status_class, desc, pkg$pkgdown_url, pkg$github_url))
-}
-```
-
+::: {#core-packages-grid .package-grid}
+Loading packages...
 :::
 
 ## Atlas Packages {.section-header}
@@ -67,33 +42,8 @@ install.packages(
 
 ### Available Atlases
 
-::: {.atlas-grid}
-
-```{r}
-#| echo: false
-#| output: asis
-for (i in seq_len(nrow(atlas_packages))) {
-  pkg <- atlas_packages[i, ]
-  status_class <- if (!is.na(pkg$status) && pkg$status == "success") "status-ok" else "status-fail"
-  status_icon <- if (!is.na(pkg$status) && pkg$status == "success") "OK" else "!"
-  logo_html <- if ("logo" %in% names(pkg) && !is.na(pkg$logo)) {
-    sprintf('![](%s){.pkg-logo}', pkg$logo)
-  } else {
-    ""
-  }
-  cat(sprintf('
-::: {.atlas-card}
-%s
-
-#### %s
-[v%s]{.version} [%s]{.build-status .%s}
-
-[Docs](%s){target="_blank"} | [GitHub](%s){target="_blank"}
-:::
-', logo_html, pkg$package, pkg$version, status_icon, status_class, pkg$pkgdown_url, pkg$github_url))
-}
-```
-
+::: {#atlas-packages-grid .atlas-grid}
+Loading atlases...
 :::
 
 ## All Packages on R-universe
