@@ -53,6 +53,8 @@ body.quarto-dark .logo-light {
 }
 
 .package-card {
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--bs-primary);
   border-radius: 0.75rem;
   padding: 1.5rem;
@@ -76,6 +78,13 @@ body.quarto-dark .logo-light {
   color: var(--bs-primary);
 }
 
+.package-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
 .package-card .version {
   display: inline-block;
   background: $gradient;
@@ -83,19 +92,21 @@ body.quarto-dark .logo-light {
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
   font-size: 0.85rem;
-  margin-bottom: 0.75rem;
 }
 
 .package-card .description {
   color: var(--bs-secondary-color);
   margin-bottom: 1rem;
   font-size: 0.95rem;
+  flex: 1;
 }
 
 .package-card .links {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
+  margin-top: auto;
+  justify-content: flex-end;
 }
 
 .package-card .links a {
@@ -167,6 +178,8 @@ body.quarto-dark .logo-light {
 }
 
 .atlas-card {
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--bs-primary);
   border-radius: 0.5rem;
   padding: 1rem;
@@ -193,6 +206,12 @@ body.quarto-dark .logo-light {
 .atlas-card .version {
   font-size: 0.75rem;
   padding: 0.15rem 0.5rem;
+}
+
+.atlas-card .links {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  text-align: right;
 }
 
 .build-status {

@@ -23,7 +23,7 @@ include-after-body:
 
 [Visualize brain atlas data in R]{.tagline}
 
-[Get Started](packages.qmd){.btn .btn-primary}
+[Get Started](docs.qmd){.btn .btn-primary}
 :::
 
 ## Quick Install

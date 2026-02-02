@@ -3,10 +3,12 @@ export function renderCorePackages(packages, container) {
     <div class="package-card">
       ${pkg.logo ? `<img src="${pkg.logo}" class="pkg-logo" alt="${pkg.package} logo">` : ''}
       <h3>${pkg.package}</h3>
-      <span class="version">v${pkg.version}</span>
-      <span class="build-status ${pkg.status === 'success' ? 'status-ok' : 'status-fail'}">
-        ${pkg.status === 'success' ? 'OK' : '!'}
-      </span>
+      <div class="package-meta">
+        <span class="version">v${pkg.version}</span>
+        <span class="build-status ${pkg.status === 'success' ? 'status-ok' : 'status-fail'}">
+          ${pkg.status === 'success' ? 'OK' : '!'}
+        </span>
+      </div>
       <p class="description">${pkg.description || pkg.title}</p>
       <div class="links">
         <a href="${pkg.pkgdown_url}" target="_blank">Docs</a> |
@@ -21,10 +23,12 @@ export function renderAtlasPackages(packages, container) {
     <div class="atlas-card">
       ${pkg.logo ? `<img src="${pkg.logo}" class="pkg-logo" alt="${pkg.package} logo">` : ''}
       <h4>${pkg.package}</h4>
-      <span class="version">v${pkg.version}</span>
-      <span class="build-status ${pkg.status === 'success' ? 'status-ok' : 'status-fail'}">
-        ${pkg.status === 'success' ? 'OK' : '!'}
-      </span>
+      <div class="package-meta">
+        <span class="version">v${pkg.version}</span>
+        <span class="build-status ${pkg.status === 'success' ? 'status-ok' : 'status-fail'}">
+          ${pkg.status === 'success' ? 'OK' : '!'}
+        </span>
+      </div>
       <div class="links">
         <a href="${pkg.pkgdown_url}" target="_blank">Docs</a> |
         <a href="${pkg.github_url}" target="_blank">GitHub</a>
