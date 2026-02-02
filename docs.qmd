@@ -1,5 +1,6 @@
 ---
 title: "Documentation"
+subtitle: "Tutorials, guides, and examples"
 include-after-body:
   - text: |
       <script type="module">
@@ -11,7 +12,21 @@ include-after-body:
       </script>
 ---
 
-Vignettes and tutorials from ggseg packages. Each links to the full article on the package documentation site.
+::: {.docs-intro}
+## Getting Started
+
+New to ggseg? Start with these resources:
+
+::: {.quick-links}
+- [**ggseg introduction**](https://ggseg.github.io/ggseg/articles/ggseg.html) - Learn the basics of 2D brain plotting
+- [**ggseg3d introduction**](https://ggseg.github.io/ggseg3d/articles/ggseg3d.html) - Create interactive 3D visualizations
+- [**Creating custom atlases**](https://ggseg.github.io/ggsegExtra/articles/customatlas.html) - Build your own brain atlas
+:::
+:::
+
+## Package Vignettes
+
+Browse all tutorials and articles from ggseg packages. Each card links to the full documentation site.
 
 ::: {#vignettes}
 Loading documentation...

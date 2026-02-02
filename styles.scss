@@ -213,3 +213,212 @@ body.quarto-dark .logo-light {
   background-color: var(--bs-danger);
   color: white;
 }
+
+.funding-category {
+  margin-bottom: 2.5rem;
+}
+
+.funding-category-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--bs-primary);
+}
+
+.funding-icon {
+  font-size: 1.5rem;
+}
+
+.funder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.funder-card {
+  display: block;
+  border: 1px solid var(--bs-primary);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  background: var(--bs-body-bg);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.funder-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: inherit;
+  text-decoration: none;
+}
+
+.funder-card h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--bs-primary);
+  font-size: 1.1rem;
+}
+
+.grant-badge {
+  display: inline-block;
+  background: $gradient;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.funder-description {
+  color: var(--bs-secondary-color);
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.funder-pi {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: var(--bs-secondary-color);
+  font-style: italic;
+}
+
+.citation-box {
+  background: var(--bs-tertiary-bg);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.citation-box h3 {
+  margin-top: 0;
+}
+
+.quarto-category {
+  background: $gradient;
+  color: white;
+  border: none;
+}
+
+.quarto-category:hover {
+  color: white;
+  opacity: 0.9;
+}
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.docs-package-card {
+  border: 1px solid var(--bs-primary);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: var(--bs-body-bg);
+  margin-bottom: 1.5rem;
+}
+
+.docs-package-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: $gradient;
+  color: white;
+}
+
+.docs-package-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.docs-site-link {
+  color: white;
+  text-decoration: none;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.docs-site-link:hover {
+  color: white;
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.vignette-list {
+  padding: 0.5rem 0;
+}
+
+.vignette-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  color: var(--bs-body-color);
+  text-decoration: none;
+  transition: background-color 0.15s;
+}
+
+.vignette-item:hover {
+  background: var(--bs-tertiary-bg);
+  color: var(--bs-primary);
+  text-decoration: none;
+}
+
+.vignette-icon {
+  font-size: 1.1rem;
+}
+
+.vignette-title {
+  flex: 1;
+}
+
+.docs-intro {
+  background: $gradient;
+  color: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.docs-intro a {
+  color: white;
+}
+
+.docs-intro a:hover {
+  opacity: 0.9;
+}
+
+.docs-intro h2 {
+  margin-top: 0;
+  color: white;
+}
+
+.quick-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.5rem;
+}
+
+.quick-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: contents;
+}
+
+.quick-links li {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  transition: background-color 0.15s;
+}
+
+.quick-links li:hover {
+  background: rgba(255, 255, 255, 0.25);
+}

@@ -1,0 +1,74 @@
+{
+  "categories": [
+    {
+      "id": "horizon",
+      "name": "EU Horizon 2020",
+      "icon": "🇪🇺",
+      "funders": [
+        {
+          "name": "Lifebrain",
+          "grant": "732592",
+          "description": "Healthy minds 0-100 years: Optimizing the use of European brain imaging cohorts",
+          "url": "https://cordis.europa.eu/project/id/732592",
+          "pi": null
+        }
+      ]
+    },
+    {
+      "id": "erc-starting",
+      "name": "ERC Starting Grants",
+      "icon": "⭐",
+      "funders": [
+        {
+          "name": "NOURISTRESS",
+          "grant": "283634",
+          "description": "Effects of Early Nutrition and Early Stress on Neurocognitive Development",
+          "url": "https://cordis.europa.eu/project/id/283634",
+          "pi": "Anders Martin Fjell"
+        },
+        {
+          "name": "NEUROCOGPLASTICITY",
+          "grant": "313440",
+          "description": "Mechanisms of Neuroplasticity",
+          "url": "https://cordis.europa.eu/project/id/313440",
+          "pi": "Kristine Beate Walhovd"
+        }
+      ]
+    },
+    {
+      "id": "erc-consolidator",
+      "name": "ERC Consolidator Grants",
+      "icon": "🏆",
+      "funders": [
+        {
+          "name": "DEVBRAINCODE",
+          "grant": "771355",
+          "description": "Charting Human Brain Development via Imaging Transcriptomic Approaches",
+          "url": "https://cordis.europa.eu/project/id/771355",
+          "pi": "Kristine Beate Walhovd"
+        },
+        {
+          "name": "COGNITIVE HEALTH",
+          "grant": "725025",
+          "description": "Maintaining Cognitive Health Across the Lifespan",
+          "url": "https://cordis.europa.eu/project/id/725025",
+          "pi": "Anders Martin Fjell"
+        }
+      ]
+    },
+    {
+      "id": "nrc",
+      "name": "Norwegian Research Council",
+      "icon": "🇳🇴",
+      "funders": [
+        {
+          "name": "Research Grants",
+          "grant": null,
+          "description": "Multiple grants supporting brain imaging research in Norway",
+          "url": "https://www.forskningsradet.no/en/",
+          "pi": null
+        }
+      ]
+    }
+  ]
+}

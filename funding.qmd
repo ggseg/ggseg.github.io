@@ -1,32 +1,27 @@
 ---
 title: "Funding"
 subtitle: "Supporting open-source neuroimaging tools"
+include-after-body:
+  - text: |
+      <script type="module">
+        import { renderFunders } from './js/render.js';
+
+        const container = document.getElementById('funders-grid');
+        fetch('./data/funders.json')
+          .then(res => res.json())
+          .then(data => renderFunders(data, container));
+      </script>
 ---
 
 ## Acknowledgments
 
 The development of ggseg has been supported by the following funding sources:
 
-### EU Horizon 2020
+::: {#funders-grid}
+Loading funders...
+:::
 
-[**Lifebrain**](https://cordis.europa.eu/project/id/732592) - Healthy minds 0-100 years: Optimizing the use of European brain imaging cohorts (Grant 732592)
-
-### European Research Council
-
-**Starting Grants**
-
-- [Grant 283634](https://cordis.europa.eu/project/id/283634) (Anders Martin Fjell)
-- [Grant 313440](https://cordis.europa.eu/project/id/313440) (Kristine Beate Walhovd)
-
-**Consolidator Grants**
-
-- [Grant 771355](https://cordis.europa.eu/project/id/771355) (Kristine Beate Walhovd)
-- [Grant 725025](https://cordis.europa.eu/project/id/725025) (Anders Martin Fjell)
-
-### Norwegian Research Council
-
-The project has received funding through multiple grants from the Norwegian Research Council.
-
+::: {.citation-box}
 ## How to Acknowledge ggseg
 
 If you use ggseg in your research, please cite:
@@ -43,3 +38,4 @@ If you use ggseg in your research, please cite:
   publisher={SAGE Publications}
 }
 ```
+:::

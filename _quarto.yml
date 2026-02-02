@@ -3,6 +3,7 @@ project:
   output-dir: _site
   resources:
     - js
+    - data
 
 website:
   title: "ggseg"

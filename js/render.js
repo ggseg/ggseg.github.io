@@ -41,13 +41,21 @@ export function renderVignettes(vignettes, container) {
   }
 
   container.innerHTML = Object.entries(grouped).map(([pkg, vigs]) => `
-    <div class="vignette-group">
-      <h3>${pkg}</h3>
-      <ul>
+    <div class="docs-package-card">
+      <div class="docs-package-header">
+        <h3>${pkg}</h3>
+        <a href="https://ggseg.github.io/${pkg}/" target="_blank" class="docs-site-link">
+          Full docs &rarr;
+        </a>
+      </div>
+      <div class="vignette-list">
         ${vigs.map(v => `
-          <li><a href="${v.url}" target="_blank">${v.title}</a></li>
+          <a href="${v.url}" target="_blank" class="vignette-item">
+            <span class="vignette-icon">📄</span>
+            <span class="vignette-title">${v.title}</span>
+          </a>
         `).join('')}
-      </ul>
+      </div>
     </div>
   `).join('');
 }
@@ -60,6 +68,27 @@ export function renderContributors(contributors, container) {
       </a>
       <div class="name">${c.user}</div>
       <div class="contributions">${c.contributions} contributions</div>
+    </div>
+  `).join('');
+}
+
+export function renderFunders(data, container) {
+  container.innerHTML = data.categories.map(cat => `
+    <div class="funding-category">
+      <h3 class="funding-category-title">
+        <span class="funding-icon">${cat.icon}</span>
+        ${cat.name}
+      </h3>
+      <div class="funder-grid">
+        ${cat.funders.map(f => `
+          <a href="${f.url}" target="_blank" class="funder-card">
+            ${f.grant ? `<span class="grant-badge">Grant ${f.grant}</span>` : ''}
+            <h4>${f.name}</h4>
+            <p class="funder-description">${f.description}</p>
+            ${f.pi ? `<span class="funder-pi">PI: ${f.pi}</span>` : ''}
+          </a>
+        `).join('')}
+      </div>
     </div>
   `).join('');
 }
