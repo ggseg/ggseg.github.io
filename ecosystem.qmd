@@ -1,0 +1,57 @@
+---
+title: "Ecosystem"
+include-after-body:
+  - text: |
+      <script type="module">
+        import { getCorePackages, getAtlasPackages, getAtlases } from './js/api.js';
+        import { renderCorePackages, renderAtlasPackages, renderAtlases } from './js/render.js';
+
+        const atlasContainer = document.getElementById('atlases-grid');
+        getAtlases().then(atlases => {
+          renderAtlases(atlases, atlasContainer);
+          document.getElementById('atlas-count').textContent = atlases.length;
+        });
+
+        const coreContainer = document.getElementById('core-packages-grid');
+        getCorePackages().then(pkgs => renderCorePackages(pkgs, coreContainer));
+
+        const pkgContainer = document.getElementById('atlas-packages-grid');
+        getAtlasPackages().then(pkgs => renderAtlasPackages(pkgs, pkgContainer));
+      </script>
+---
+
+## Core Packages {.section-header}
+
+The foundational packages for brain atlas visualization in R.
+
+::: {#core-packages-grid .package-grid}
+Loading packages...
+:::
+
+## Brain Atlases {.section-header}
+
+ggseg provides <span id="atlas-count">...</span> brain atlases for visualization, each available as 2D polygons and/or 3D meshes.
+
+::: {#atlases-grid .atlas-dataset-grid}
+Loading atlases...
+:::
+
+## Atlas Packages {.section-header}
+
+Brain atlas datasets are distributed as R packages. Install any atlas from R-universe:
+
+```r
+install.packages(
+ "ggsegYeo2011",
+ repos = c(
+   "https://ggseg.r-universe.dev",
+   "https://cloud.r-project.org"
+  )
+)
+```
+
+::: {#atlas-packages-grid .atlas-grid}
+Loading packages...
+:::
+
+Browse all packages on [R-universe](https://ggseg.r-universe.dev/builds){target="_blank"}.

@@ -76,6 +76,27 @@ export function renderContributors(contributors, container) {
   `).join('');
 }
 
+export function renderAtlases(atlases, container) {
+  container.innerHTML = atlases.map(atlas => `
+    <div class="atlas-dataset-card">
+      <div class="atlas-header">
+        ${atlas.docsUrl
+          ? `<a href="${atlas.docsUrl}" target="_blank" class="atlas-title-link">${atlas.title}</a>`
+          : `<span class="atlas-title">${atlas.title}</span>`
+        }
+        <code class="atlas-code">${atlas.name}</code>
+      </div>
+      <div class="atlas-footer">
+        <div class="atlas-formats">
+          ${atlas.has2d ? '<span class="format-badge format-2d">2D</span>' : ''}
+          ${atlas.has3d ? '<span class="format-badge format-3d">3D</span>' : ''}
+        </div>
+        <span class="atlas-package-label">${atlas.package}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
 export function renderFunders(data, container) {
   container.innerHTML = data.categories.map(cat => `
     <div class="funding-category">

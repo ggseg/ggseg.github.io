@@ -16,8 +16,8 @@ website:
   navbar:
     title: "ggseg"
     left:
-      - text: "Packages"
-        href: packages.qmd
+      - text: "Ecosystem"
+        href: ecosystem.qmd
       - text: "Docs"
         href: docs.qmd
       - text: "Contributors"

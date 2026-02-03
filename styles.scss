@@ -214,6 +214,107 @@ body.quarto-dark .logo-light {
   text-align: right;
 }
 
+.atlas-dataset-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.atlas-dataset-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--bs-primary);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  background: var(--bs-body-bg);
+  transition: transform 0.2s;
+}
+
+.atlas-dataset-card:hover {
+  transform: translateY(-2px);
+}
+
+.atlas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.atlas-header h4 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--bs-primary);
+}
+
+.atlas-title-link,
+.atlas-title {
+  color: var(--bs-primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.atlas-title-link:hover {
+  text-decoration: underline;
+}
+
+.atlas-code {
+  background: $gradient;
+  color: white;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.atlas-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.atlas-formats {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.format-badge {
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.format-2d {
+  background: var(--bs-info);
+  color: white;
+}
+
+.format-3d {
+  background: var(--bs-success);
+  color: white;
+}
+
+.region-count {
+  font-size: 0.8rem;
+  color: var(--bs-secondary-color);
+}
+
+.atlas-package-link {
+  font-size: 0.85rem;
+  color: var(--bs-primary);
+}
+
+.atlas-package-label {
+  font-size: 0.85rem;
+  color: var(--bs-secondary-color);
+}
+
 .build-status {
   display: inline-block;
   padding: 0.15rem 0.5rem;
