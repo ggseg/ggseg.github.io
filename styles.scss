@@ -83,9 +83,15 @@ body.quarto-dark .logo-light {
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 0.75rem;
+  flex-wrap: wrap;
 }
 
-.package-card .version {
+.pkg-badge img {
+  height: 20px;
+  vertical-align: middle;
+}
+
+.version {
   display: inline-block;
   background: $gradient;
   color: white;
@@ -304,21 +310,8 @@ body.quarto-dark .logo-light {
   gap: 0.5rem;
 }
 
-.format-badge {
-  padding: 0.2rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-.format-2d {
-  background: var(--bs-info);
-  color: white;
-}
-
-.format-3d {
-  background: var(--bs-success);
-  color: white;
+.atlas-formats img {
+  height: 20px;
 }
 
 .region-count {
@@ -336,24 +329,6 @@ body.quarto-dark .logo-light {
   color: var(--bs-secondary-color);
 }
 
-.build-status {
-  display: inline-block;
-  padding: 0.15rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  margin-left: 0.5rem;
-}
-
-.status-ok {
-  background-color: var(--bs-success);
-  color: white;
-}
-
-.status-fail {
-  background-color: var(--bs-danger);
-  color: white;
-}
 
 .funding-category {
   margin-bottom: 2.5rem;

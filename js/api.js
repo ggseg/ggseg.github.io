@@ -126,6 +126,7 @@ function transformPackage(pkg) {
     stars: pkg._stars,
     logo: pkg._pkglogo,
     github_url: githubUrl,
-    pkgdown_url: `https://ggseg.github.io/${pkg.Package}/`
+    pkgdown_url: `https://ggseg.github.io/${pkg.Package}/`,
+    on_cran: pkg._cranurl === true
   };
 }

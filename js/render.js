@@ -4,10 +4,22 @@ export function renderCorePackages(packages, container) {
       ${pkg.logo ? `<img src="${pkg.logo}" class="pkg-logo" alt="${pkg.package} logo">` : ''}
       <h3>${pkg.package}</h3>
       <div class="package-meta">
-        <span class="version">v${pkg.version}</span>
-        <span class="build-status ${pkg.status === 'success' ? 'status-ok' : 'status-fail'}">
-          ${pkg.status === 'success' ? 'OK' : '!'}
-        </span>
+        <a href="https://ggseg.r-universe.dev/${pkg.package}" target="_blank" class="pkg-badge">
+          <img src="https://img.shields.io/badge/r--universe-${pkg.version}-5e3c58" alt="r-universe">
+        </a>
+        ${pkg.on_cran ? `
+          <a href="https://cran.r-project.org/package=${pkg.package}" target="_blank" class="pkg-badge">
+            <img src="https://img.shields.io/badge/dynamic/json?url=https://crandb.r-pkg.org/${pkg.package}&query=Version&label=CRAN&color=29393e" alt="CRAN">
+          </a>
+        ` : ''}
+        ${pkg.stars ? `
+          <a href="${pkg.github_url}/stargazers" target="_blank" class="pkg-badge">
+            <img src="https://img.shields.io/badge/★-${pkg.stars}-a8c5cb" alt="${pkg.stars} stars">
+          </a>
+        ` : ''}
+        <a href="https://ggseg.r-universe.dev/${pkg.package}" target="_blank" class="pkg-badge">
+          <img src="https://img.shields.io/badge/build-${pkg.status === 'success' ? 'passing-478f76' : 'failing-CD6689'}" alt="build ${pkg.status}">
+        </a>
       </div>
       <p class="description">${pkg.description || pkg.title}</p>
       <div class="links">
@@ -24,10 +36,17 @@ export function renderAtlasPackages(packages, container) {
       ${pkg.logo ? `<img src="${pkg.logo}" class="pkg-logo" alt="${pkg.package} logo">` : ''}
       <h4>${pkg.package}</h4>
       <div class="package-meta">
-        <span class="version">v${pkg.version}</span>
-        <span class="build-status ${pkg.status === 'success' ? 'status-ok' : 'status-fail'}">
-          ${pkg.status === 'success' ? 'OK' : '!'}
-        </span>
+        <a href="https://ggseg.r-universe.dev/${pkg.package}" target="_blank" class="pkg-badge">
+          <img src="https://img.shields.io/badge/r--universe-${pkg.version}-5e3c58" alt="r-universe">
+        </a>
+        ${pkg.on_cran ? `
+          <a href="https://cran.r-project.org/package=${pkg.package}" target="_blank" class="pkg-badge">
+            <img src="https://img.shields.io/badge/dynamic/json?url=https://crandb.r-pkg.org/${pkg.package}&query=Version&label=CRAN&color=29393e" alt="CRAN">
+          </a>
+        ` : ''}
+        <a href="https://ggseg.r-universe.dev/${pkg.package}" target="_blank" class="pkg-badge">
+          <img src="https://img.shields.io/badge/build-${pkg.status === 'success' ? 'passing-478f76' : 'failing-CD6689'}" alt="build ${pkg.status}">
+        </a>
       </div>
       <div class="links">
         <a href="${pkg.pkgdown_url}" target="_blank">Docs</a> |
@@ -88,8 +107,8 @@ export function renderAtlases(atlases, container) {
       </div>
       <div class="atlas-footer">
         <div class="atlas-formats">
-          ${atlas.has2d ? '<span class="format-badge format-2d">2D</span>' : ''}
-          ${atlas.has3d ? '<span class="format-badge format-3d">3D</span>' : ''}
+          ${atlas.has2d ? '<img src="https://img.shields.io/badge/2D-ggseg-5e3c58" alt="2D">' : ''}
+          ${atlas.has3d ? '<img src="https://img.shields.io/badge/3D-ggseg3d-29393e" alt="3D">' : ''}
         </div>
         <span class="atlas-package-label">${atlas.package}</span>
       </div>
