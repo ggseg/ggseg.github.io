@@ -41,31 +41,45 @@
       "icon": "🏆",
       "funders": [
         {
-          "name": "DEVBRAINCODE",
+          "name": "Set-to-change",
           "grant": "771355",
-          "description": "Charting Human Brain Development via Imaging Transcriptomic Approaches",
+          "description": "Early life factors restricting and promoting neurocognitive plasticity through life",
           "url": "https://cordis.europa.eu/project/id/771355",
           "pi": "Kristine Beate Walhovd"
         },
         {
-          "name": "COGNITIVE HEALTH",
+          "name": "The Missing Link",
           "grant": "725025",
-          "description": "Maintaining Cognitive Health Across the Lifespan",
+          "description": "The Missing Link of Episodic Memory Decline in Aging: The Role of Inefficient Systems Consolidation",
           "url": "https://cordis.europa.eu/project/id/725025",
           "pi": "Anders Martin Fjell"
         }
       ]
     },
     {
-      "id": "nrc",
+      "id": "nfr",
       "name": "Norwegian Research Council",
       "icon": "🇳🇴",
       "funders": [
         {
-          "name": "Research Grants",
-          "grant": null,
-          "description": "Multiple grants supporting brain imaging research in Norway",
-          "url": "https://www.forskningsradet.no/en/",
+          "name": "AHeadForLife",
+          "grant": "325001",
+          "description": "Societal and environmental determinants of brain and cognition",
+          "url": "https://prosjektbanken.forskningsradet.no/project/FORISS/325001",
+          "pi": null
+        },
+        {
+          "name": "The Missing Link",
+          "grant": "262453",
+          "description": "The Missing Link of Episodic Memory Decline in Aging",
+          "url": "https://prosjektbanken.forskningsradet.no/project/FORISS/262453",
+          "pi": null
+        },
+        {
+          "name": "Lifespan Cognitive Neuroscience",
+          "grant": "249931",
+          "description": "Breaking new ground in Lifespan Cognitive Neuroscience",
+          "url": "https://prosjektbanken.forskningsradet.no/project/FORISS/249931",
           "pi": null
         }
       ]

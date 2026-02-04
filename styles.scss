@@ -214,11 +214,32 @@ body.quarto-dark .logo-light {
   text-align: right;
 }
 
+.atlas-search-box {
+  margin-bottom: 1.5rem;
+}
+
+.atlas-search-box input {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+}
+
+.atlas-search-box input:focus {
+  outline: none;
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 2px rgba(var(--bs-primary-rgb), 0.25);
+}
+
 .atlas-dataset-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
-  margin: 2rem 0;
+  margin: 1rem 0 2rem 0;
 }
 
 .atlas-dataset-card {

@@ -6,14 +6,28 @@ include-after-body:
         import { getCorePackages, getAtlasPackages, getAtlases } from './js/api.js';
         import { renderCorePackages, renderAtlasPackages, renderAtlases } from './js/render.js';
 
+        const coreContainer = document.getElementById('core-packages-grid');
+        getCorePackages().then(pkgs => renderCorePackages(pkgs, coreContainer));
+
         const atlasContainer = document.getElementById('atlases-grid');
+        let allAtlases = [];
+
         getAtlases().then(atlases => {
+          allAtlases = atlases;
           renderAtlases(atlases, atlasContainer);
           document.getElementById('atlas-count').textContent = atlases.length;
         });
 
-        const coreContainer = document.getElementById('core-packages-grid');
-        getCorePackages().then(pkgs => renderCorePackages(pkgs, coreContainer));
+        const searchInput = document.getElementById('atlas-search');
+        searchInput.addEventListener('input', (e) => {
+          const query = e.target.value.toLowerCase().trim();
+          const filtered = allAtlases.filter(atlas =>
+            atlas.title.toLowerCase().includes(query) ||
+            atlas.name.toLowerCase().includes(query)
+          );
+          renderAtlases(filtered, atlasContainer);
+          document.getElementById('atlas-count').textContent = filtered.length;
+        });
 
         const pkgContainer = document.getElementById('atlas-packages-grid');
         getAtlasPackages().then(pkgs => renderAtlasPackages(pkgs, pkgContainer));
@@ -31,6 +45,10 @@ Loading packages...
 ## Brain Atlases {.section-header}
 
 ggseg provides <span id="atlas-count">...</span> brain atlases for visualization, each available as 2D polygons and/or 3D meshes.
+
+::: {.atlas-search-box}
+<input type="text" id="atlas-search" placeholder="Search atlases by name..." />
+:::
 
 ::: {#atlases-grid .atlas-dataset-grid}
 Loading atlases...
