@@ -23,7 +23,7 @@ include-after-body:
 
 [Visualize brain atlas data in R]{.tagline}
 
-[Get Started](docs.qmd){.btn .btn-primary}
+[Get Started](/docs/){.btn .btn-primary}
 :::
 
 ## Quick Install
@@ -51,7 +51,7 @@ Loading packages...
 
 The ggseg ecosystem includes []{#atlas-count} atlas packages providing data for different brain parcellations.
 
-[View All Packages](packages.qmd){.btn-gradient}
+[View All Packages](/ecosystem/){.btn-gradient}
 
 ## Community
 

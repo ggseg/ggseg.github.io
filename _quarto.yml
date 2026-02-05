@@ -17,16 +17,19 @@ website:
     title: "ggseg"
     left:
       - text: "Ecosystem"
-        href: ecosystem.qmd
+        href: ecosystem/index.qmd
       - text: "Docs"
-        href: docs.qmd
+        href: docs/index.qmd
       - text: "Contributors"
-        href: contributors.qmd
+        href: contributors/index.qmd
       - text: "Funding"
-        href: funding.qmd
+        href: funding/index.qmd
       - text: "News"
         href: news/index.qmd
     right:
+      - icon: rss
+        href: news/index.xml
+        aria-label: RSS Feed
       - icon: chat-dots
         href: https://github.com/orgs/ggseg/discussions
         aria-label: Discussions

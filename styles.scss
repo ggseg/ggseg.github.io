@@ -408,6 +408,10 @@ body.quarto-dark .logo-light {
   margin: 2rem 0;
 }
 
+body.quarto-dark .citation-box {
+  background: $brand-teal-dark;
+}
+
 .citation-box h3 {
   margin-top: 0;
 }
@@ -419,6 +423,20 @@ body.quarto-dark .logo-light {
 }
 
 .quarto-category:hover {
+  color: white;
+  opacity: 0.9;
+}
+
+.listing-category {
+  background: $gradient;
+  color: white !important;
+  border: none;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.listing-category:hover {
   color: white;
   opacity: 0.9;
 }

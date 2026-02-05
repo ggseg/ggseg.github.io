@@ -3,8 +3,8 @@ title: "Ecosystem"
 include-after-body:
   - text: |
       <script type="module">
-        import { getCorePackages, getAtlasPackages, getAtlases } from './js/api.js';
-        import { renderCorePackages, renderAtlasPackages, renderAtlases } from './js/render.js';
+        import { getCorePackages, getAtlasPackages, getAtlases } from '../js/api.js';
+        import { renderCorePackages, renderAtlasPackages, renderAtlases } from '../js/render.js';
 
         const coreContainer = document.getElementById('core-packages-grid');
         getCorePackages().then(pkgs => renderCorePackages(pkgs, coreContainer));

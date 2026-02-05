@@ -4,8 +4,8 @@ subtitle: "The people behind ggseg"
 include-after-body:
   - text: |
       <script type="module">
-        import { getContributors } from './js/api.js';
-        import { renderContributors } from './js/render.js';
+        import { getContributors } from '../js/api.js';
+        import { renderContributors } from '../js/render.js';
 
         const container = document.getElementById('contributors-grid');
         getContributors().then(contributors => renderContributors(contributors, container));

@@ -4,10 +4,10 @@ subtitle: "Supporting open-source neuroimaging tools"
 include-after-body:
   - text: |
       <script type="module">
-        import { renderFunders } from './js/render.js';
+        import { renderFunders } from '../js/render.js';
 
         const container = document.getElementById('funders-grid');
-        fetch('./data/funders.json')
+        fetch('../data/funders.json')
           .then(res => res.json())
           .then(data => renderFunders(data, container));
       </script>

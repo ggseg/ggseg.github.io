@@ -4,8 +4,8 @@ subtitle: "Tutorials, guides, and examples"
 include-after-body:
   - text: |
       <script type="module">
-        import { getVignettes } from './js/api.js';
-        import { renderVignettes } from './js/render.js';
+        import { getVignettes } from '../js/api.js';
+        import { renderVignettes } from '../js/render.js';
 
         const container = document.getElementById('vignettes');
         getVignettes().then(vigs => renderVignettes(vigs, container));
