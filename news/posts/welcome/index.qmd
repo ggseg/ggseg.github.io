@@ -1,7 +1,7 @@
 ---
 title: "Welcome to the ggseg website"
-author: "ggseg team"
-date: "2024-01-29"
+author: "Athanasia M. Mowinckel"
+date: "2024-02-07"
 categories: [news, announcements]
 image: /images/hex_dark.png
 ---
@@ -93,8 +93,7 @@ ggseg3d(atlas = dk) |>
 The ggseg ecosystem includes atlases covering:
 
 - **Cortical parcellations** - Desikan-Killiany, Destrieux, Glasser, Schaefer, and more
-- **Subcortical structures** - aseg, CIT168 basal ganglia, hippocampal subfields
-- **Cerebellar atlases** - SUIT, Buckner cerebellar networks
+- **Subcortical structures** - aseg
 - **White matter** - JHU tracts, tracula pathways
 - **Functional networks** - Yeo networks, Gordon parcellation, AICHA
 

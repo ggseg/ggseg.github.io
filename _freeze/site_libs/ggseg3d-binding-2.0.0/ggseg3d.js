@@ -49,7 +49,8 @@ HTMLWidgets.widget({
               colors: meshData.colors,
               colorMode: meshData.colorMode || 'facecolor',
               opacity: meshData.opacity !== undefined ? meshData.opacity : 1.0,
-              hoverText: meshData.hoverText || null
+              hoverText: meshData.hoverText || null,
+              vertexLabels: meshData.vertexLabels || null
             });
           }
         }
