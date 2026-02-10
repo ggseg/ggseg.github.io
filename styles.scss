@@ -1,6 +1,54 @@
 /*-- scss:rules --*/
+
 $gradient: linear-gradient(135deg, $brand-plum, var(--bs-tertiary-color));
 ;
+
+figcaption,
+.cell-output-display>p:last-child:not(:first-child) {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--bs-secondary-color);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+.cell-output-display>p:last-child:not(:first-child) {
+  padding-top: .5rem;
+}
+
+div.callout .callout-icon-container {
+  display: none !important;
+}
+
+div.callout .callout-header {
+  padding-left: 1rem !important;
+}
+
+div.callout.callout-note {
+  border-left-color: $brand-teal-light !important;
+
+  &>.callout-header {
+    background-color: transparentize($color: $brand-teal-light, $amount: 0.7) !important;
+  }
+}
+
+div.callout.callout-tip {
+  border-left-color: $brand-warning !important;
+
+  &>.callout-header {
+    background-color: transparentize($color: $brand-warning, $amount: 0.7) !important;
+  }
+}
+
+div.callout.callout-warning {
+  border-left-color: $brand-danger !important;
+
+  &>.callout-header {
+    background-color: transparentize($color: $brand-danger, $amount: 0.7) !important;
+  }
+}
+
 
 
 .hero-section {

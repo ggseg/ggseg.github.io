@@ -10,6 +10,9 @@ color:
     plum: "#5e3c58"
     slate-900: "#1a2a2e"
     white: "#f2f0ef"
+    success: "#478f76"
+    danger: "#CD6689"
+    warning: "#e5a663"
   primary:
     light: teal-dark
     dark: teal-light
@@ -25,8 +28,9 @@ color:
   background:
     light: white
     dark: slate-900
-  success: "#478f76"
-  danger: "#CD6689"
+  success: success
+  danger: danger
+
 
 logo:
   medium:
