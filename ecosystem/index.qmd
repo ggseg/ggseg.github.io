@@ -44,7 +44,7 @@ Loading packages...
 
 ## Brain Atlases {.section-header}
 
-ggseg provides <span id="atlas-count">...</span> brain atlases for visualization, each available as 2D polygons and/or 3D meshes.
+The ggsegverse provides <span id="atlas-count">...</span> brain atlases for visualization, each available as 2D polygons and/or 3D meshes.
 
 ::: {.atlas-search-box}
 <input type="text" id="atlas-search" placeholder="Search atlases by name..." />
@@ -56,7 +56,8 @@ Loading atlases...
 
 ## Atlas Packages {.section-header}
 
-Brain atlas datasets are distributed as R packages. Install any atlas from R-universe:
+Brain atlas datasets are distributed as R packages.
+Install any atlas from R-universe:
 
 ```r
 install.packages(

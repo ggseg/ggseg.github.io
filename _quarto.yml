@@ -6,15 +6,15 @@ project:
     - data
 
 website:
-  title: "ggseg"
-  description: "Visualize brain atlas data in R"
+  title: "ggsegverse"
+  description: "Gross Geometry Brain Segmentation Universe for R"
   site-url: https://ggseg.github.io
   repo-url: https://github.com/ggseg/ggseg.github.io
   repo-actions: [edit, issue]
   favicon: images/favico.png
 
   navbar:
-    title: "ggseg"
+    title: ""
     left:
       - text: "Ecosystem"
         href: ecosystem/index.qmd
@@ -41,7 +41,7 @@ website:
     left: |
       Made with [Quarto](https://quarto.org/)
     center: |
-      ggseg suite &copy; 2024
+      ggsegverse &copy; 2026
     right:
       - icon: github
         href: https://github.com/ggseg

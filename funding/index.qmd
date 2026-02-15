@@ -15,16 +15,16 @@ include-after-body:
 
 ## Acknowledgments
 
-The development of ggseg has been supported by the following funding sources:
+The development of the ggsegverse has been supported by the following funding sources:
 
 ::: {#funders-grid}
 Loading funders...
 :::
 
 ::: {.citation-box}
-## How to Acknowledge ggseg
+## How to Acknowledge ggsegverse
 
-If you use ggseg in your research, please cite:
+If you use ggsegverse tools in your research, please cite:
 
 ```bibtex
 @article{mowinckel2020,

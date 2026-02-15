@@ -1,6 +1,6 @@
 # ggseg.github.io
 
-Website for the ggseg suite of R packages for brain atlas visualization.
+Website for the ggsegverse — R packages for brain atlas visualization.
 
 ## Development
 

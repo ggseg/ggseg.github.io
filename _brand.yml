@@ -1,5 +1,5 @@
 meta:
-  name: ggseg
+  name: ggsegverse
   link: https://ggseg.github.io
 
 color:
@@ -33,6 +33,9 @@ color:
 
 
 logo:
+  small:
+    light: images/submark_dark.png
+    dark: images/submark_light.png
   medium:
     light: images/logo_dark.png
     dark: images/logo_light.png
