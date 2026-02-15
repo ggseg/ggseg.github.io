@@ -1,6 +1,6 @@
 meta:
   name: ggsegverse
-  link: https://ggseg.github.io
+  link: https://ggsegverse.github.io
 
 color:
   palette:
@@ -42,10 +42,19 @@ logo:
 
 typography:
   fonts:
-    - family: Inter
+    - family: Nelphim
+      source: file
+      files:
+        - path: fonts/Nelphim.woff2
+          weight: normal
+        - path: fonts/Nelphim.woff
+          weight: normal
+    - family: Montserrat
       source: google
     - family: JetBrains Mono
       source: google
+  base: Montserrat
+  headings: Nelphim
   link:
     color:
       light: teal-dark

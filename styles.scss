@@ -1,5 +1,20 @@
 /*-- scss:rules --*/
 
+.navbar-brand,
+.navbar .nav-link {
+  font-family: $headings-font-family;
+  letter-spacing: 0.11em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: 0.11em;
+}
+
 $gradient: linear-gradient(135deg, $brand-plum, var(--bs-tertiary-color));
 ;
 

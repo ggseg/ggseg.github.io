@@ -1,4 +1,4 @@
-const API_URL = 'https://ggseg.r-universe.dev/api/packages';
+const API_URL = 'https://ggsegverse.r-universe.dev/api/packages';
 const CORE_PACKAGES = ['ggseg', 'ggseg3d', 'ggsegExtra'];
 
 let cachedData = null;
@@ -40,7 +40,7 @@ export async function getVignettes() {
         package: pkg.Package,
         title: vig.title,
         source: vig.source,
-        url: `https://ggseg.github.io/${pkg.Package}/articles/${vig.source.replace(/\.Rmd$/, '.html')}`
+        url: `https://ggsegverse.github.io/${pkg.Package}/articles/${vig.source.replace(/\.Rmd$/, '.html')}`
       });
     }
   }
@@ -95,7 +95,7 @@ export async function getAtlases() {
           package: pkg.Package,
           has2d: false,
           has3d: false,
-          docsUrl: hasDocsPage ? `https://ggseg.github.io/${pkg.Package}/reference/${baseName}.html` : null
+          docsUrl: hasDocsPage ? `https://ggsegverse.github.io/${pkg.Package}/reference/${baseName}.html` : null
         });
       }
 
@@ -113,7 +113,7 @@ function transformPackage(pkg) {
   const url = pkg.URL || '';
   const githubUrl = url.includes('github.com')
     ? url.split(',')[0]
-    : `https://github.com/ggseg/${pkg.Package}`;
+    : `https://github.com/ggsegverse/${pkg.Package}`;
 
   return {
     package: pkg.Package,
@@ -126,7 +126,7 @@ function transformPackage(pkg) {
     stars: pkg._stars,
     logo: pkg._pkglogo,
     github_url: githubUrl,
-    pkgdown_url: `https://ggseg.github.io/${pkg.Package}/`,
+    pkgdown_url: `https://ggsegverse.github.io/${pkg.Package}/`,
     on_cran: pkg._cranurl === true
   };
 }

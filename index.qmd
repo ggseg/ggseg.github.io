@@ -31,7 +31,7 @@ include-after-body:
 install.packages(
  c("ggseg", "ggseg3d", "ggsegExtra"),
  repos = c(
-   "https://ggseg.r-universe.dev",
+   "https://ggsegverse.r-universe.dev",
    "https://cloud.r-project.org"
   )
 )
@@ -56,5 +56,5 @@ The ggsegverse ecosystem includes []{#atlas-count} atlas packages providing data
 
 Join the discussion and get help from the community.
 
-- [GitHub Discussions](https://github.com/orgs/ggseg/discussions) - Ask questions and share ideas
-- [GitHub Issues](https://github.com/ggseg/ggseg/issues) - Report bugs and request features
+- [GitHub Discussions](https://github.com/orgs/ggsegverse/discussions) - Ask questions and share ideas
+- [GitHub Issues](https://github.com/ggsegverse/ggseg/issues) - Report bugs and request features

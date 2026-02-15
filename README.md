@@ -1,4 +1,4 @@
-# ggseg.github.io
+# ggsegverse.github.io
 
 Website for the ggsegverse — R packages for brain atlas visualization.
 

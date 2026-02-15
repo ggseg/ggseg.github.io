@@ -113,7 +113,7 @@ Install the core packages from R-universe:
 install.packages(
   c("ggseg", "ggseg3d", "ggsegExtra"),
   repos = c(
-    "https://ggseg.r-universe.dev",
+    "https://ggsegverse.r-universe.dev",
     "https://cloud.r-project.org"
   )
 )
@@ -125,7 +125,7 @@ Then install any atlas packages you need:
 install.packages(
   "ggsegYeo2011",
   repos = c(
-    "https://ggseg.r-universe.dev",
+    "https://ggsegverse.r-universe.dev",
     "https://cloud.r-project.org"
   )
 )
@@ -135,6 +135,6 @@ Check out the [documentation](/docs/) for tutorials and vignettes.
 
 ## Stay updated
 
-- Follow [GitHub Discussions](https://github.com/orgs/ggseg/discussions) for community help and announcements
+- Follow [GitHub Discussions](https://github.com/orgs/ggsegverse/discussions) for community help and announcements
 - Report issues on individual package repositories
 - Star the repos to show support
