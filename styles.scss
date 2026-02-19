@@ -1,9 +1,14 @@
 /*-- scss:rules --*/
 
-.navbar-brand,
-.navbar .nav-link {
+.navbar-brand {
   font-family: $headings-font-family;
   letter-spacing: 0.11em;
+}
+
+.navbar .nav-link {
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 
 h1,

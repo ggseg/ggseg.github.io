@@ -24,6 +24,14 @@ include-after-body:
 [Get Started](/docs/){.btn .btn-primary}
 :::
 
+::: {.callout-warning}
+## Heads up — things may be temporarily out of sync
+
+We are rolling out a set of new features and infrastructure changes for ggsegverse.
+During this transition some packages and documentation may be briefly out of sync with each other.
+We are working to get everything aligned as quickly as possible — thanks for your patience!
+:::
+
 ## Quick Install
 
 ```r
