@@ -42,24 +42,19 @@ logo:
 
 typography:
   fonts:
-    - family: Nelphim
-      source: file
-      files:
-        - path: fonts/Nelphim.woff2
-          weight: normal
-        - path: fonts/Nelphim.woff
-          weight: normal
     - family: Montserrat
       source: google
-    - family: JetBrains Mono
+    - family: Inter
       source: google
-  base: Montserrat
-  headings: Nelphim
+    - family: Fira Code
+      source: google
+  base: Inter
+  headings: Montserrat
   link:
     color:
       light: teal-dark
       dark: teal-light
-  monospace: JetBrains Mono
+  monospace: Fira Code
   monospace-block:
     background-color:
       light: mauve

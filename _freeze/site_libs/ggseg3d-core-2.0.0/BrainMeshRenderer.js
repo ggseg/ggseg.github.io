@@ -126,7 +126,8 @@
 
     addMesh(meshData) {
       const { vertices, faces, colors, colorMode, opacity, name, hoverText,
-              edgeColor, edgeWidth, boundaryEdges, vertexLabels } = meshData;
+              edgeColor, edgeWidth, boundaryEdges, vertexLabels,
+              vertexTexts } = meshData;
 
       let geometry;
       let material;
@@ -156,7 +157,7 @@
       }
 
       const mesh = new THREE.Mesh(geometry, material);
-      mesh.userData = { name, hoverText, originalColors: colors, vertexLabels };
+      mesh.userData = { name, hoverText, originalColors: colors, vertexLabels, vertexTexts };
       this.scene.add(mesh);
       this.meshes.push(mesh);
       this.meshData.push(meshData);
@@ -291,8 +292,13 @@
         eye = cameraSpec || { x: 350, y: 0, z: 0 };
       }
 
-      this.camera.position.set(eye.x, eye.y, eye.z);
-      this.camera.lookAt(0, 0, 0);
+      const target = this.controls.target;
+      this.camera.position.set(
+        target.x + eye.x,
+        target.y + eye.y,
+        target.z + eye.z
+      );
+      this.camera.lookAt(target);
       this.controls.update();
     }
 
@@ -300,7 +306,7 @@
       this.scene.background = new THREE.Color(color);
     }
 
-    fitToMeshes(padding = 1.1) {
+    centerOnMeshes() {
       if (this.meshes.length === 0) return;
 
       const box = new THREE.Box3();
@@ -310,6 +316,20 @@
 
       const center = new THREE.Vector3();
       box.getCenter(center);
+
+      this.controls.target.copy(center);
+      this.camera.lookAt(center);
+      this.controls.update();
+    }
+
+    fitToMeshes(padding = 1.1) {
+      this.centerOnMeshes();
+      if (this.meshes.length === 0) return;
+
+      const box = new THREE.Box3();
+      for (const mesh of this.meshes) {
+        box.expandByObject(mesh);
+      }
 
       const size = new THREE.Vector3();
       box.getSize(size);
@@ -326,9 +346,6 @@
         this.camera.bottom = -maxDim / 2;
         this.camera.updateProjectionMatrix();
       }
-
-      this.controls.target.copy(center);
-      this.controls.update();
     }
 
     clearMeshes() {
@@ -357,10 +374,13 @@
           const vertexIndex = intersect.face.a;
           const label = mesh.userData.vertexLabels[vertexIndex];
           if (label) {
+            const vertexText = mesh.userData.vertexTexts
+              ? mesh.userData.vertexTexts[vertexIndex]
+              : null;
             return {
               userData: {
                 name: label,
-                hoverText: mesh.userData.hoverText
+                hoverText: vertexText || mesh.userData.hoverText
               }
             };
           }
