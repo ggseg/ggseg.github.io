@@ -105,6 +105,10 @@ body .logo-light {
   display: none;
 }
 
+body.quarto-dark :not(pre) > code {
+  background-color: $brand-teal-dark;
+}
+
 body.quarto-dark .logo-dark {
   display: none !important;
 }

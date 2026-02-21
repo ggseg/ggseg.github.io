@@ -206,12 +206,16 @@ The atlas creation tools in [`ggseg.extra`](https://ggseg.github.io/ggseg.extra/
 The pipelines now support parallel processing through the [`future`](https://future.futureverse.org/) package and show progress bars via [`progressr`](https://progressr.futureverse.org/).
 The old `rgdal` dependency (which was retired from CRAN) has been replaced with [`sf`](https://r-spatial.github.io/sf/) and [`terra`](https://rspatial.github.io/terra/).
 
-Three creation functions cover the atlas types:
+Creation functions are named by atlas type and input format:
 
-- `create_cortical_atlas()` builds from [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/) annotation files
-- `create_subcortical_atlas()` builds from volumetric segmentation files
-- `create_tract_atlas()` builds from tractography streamlines
-- `create_wholebrain_atlas()` is a new and experimental pipeline, building from whole-brain atlas volumetric files. 
+- `create_cortical_from_annotation()` builds from [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/) annotation files
+- `create_cortical_from_labels()` builds from FreeSurfer label files
+- `create_cortical_from_gifti()` builds from GIFTI label files
+- `create_cortical_from_cifti()` builds from CIFTI dense label files
+- `create_cortical_from_neuromaps()` builds from neuromaps annotations
+- `create_subcortical_from_volume()` builds from volumetric segmentation files
+- `create_tract_from_tractography()` builds from tractography streamlines
+- `create_wholebrain_from_volume()` is a new and experimental pipeline, building from whole-brain volumetric parcellation files
 
 All produce unified `ggseg_atlas` objects directly.
 
