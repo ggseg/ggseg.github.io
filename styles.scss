@@ -1,5 +1,25 @@
 /*-- scss:rules --*/
 
+.navbar-brand {
+  font-family: $headings-font-family;
+  letter-spacing: 0.11em;
+}
+
+.navbar .nav-link {
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: 0.11em;
+}
+
 $gradient: linear-gradient(135deg, $brand-plum, var(--bs-tertiary-color));
 ;
 
@@ -61,7 +81,7 @@ div.callout.callout-warning {
 }
 
 .hero-logo {
-  width: 150px;
+  width: 400px;
   height: auto;
   margin-bottom: 1.5rem;
 }

@@ -1,6 +1,6 @@
 ---
 title: "Contributors"
-subtitle: "The people behind ggseg"
+subtitle: "The people behind ggsegverse"
 include-after-body:
   - text: |
       <script type="module">
@@ -14,11 +14,11 @@ include-after-body:
 
 ## Core Team
 
-The ggseg suite is primarily developed and maintained by [Athanasia Mo Mowinckel](https://drmowinckels.io), and core concept and initial prototype by [Didac Vidal-Piñeiro](https://www.sv.uio.no/psi/personer/vit/didacvp/).
+ggsegverse is primarily developed and maintained by [Athanasia Mo Mowinckel](https://drmowinckels.io), and core concept and initial prototype by [Didac Vidal-Piñeiro](https://www.sv.uio.no/psi/personer/vit/didacvp/).
 
 ## All Contributors {.section-header}
 
-Thank you to everyone who has contributed to the ggseg ecosystem.
+Thank you to everyone who has contributed to the ggsegverse.
 
 ::: {#contributors-grid .contributor-grid}
 Loading contributors...
@@ -28,7 +28,7 @@ Loading contributors...
 
 We welcome contributions of all kinds:
 
-- **Bug reports**: Found a bug? [Open an issue](https://github.com/ggseg/ggseg/issues)
-- **Feature requests**: Have an idea? [Start a discussion](https://github.com/orgs/ggseg/discussions)
-- **Code contributions**: Check out the [contribution guidelines](https://github.com/ggseg/ggseg/blob/main/.github/CONTRIBUTING.md)
-- **New atlases**: Want to add a brain atlas? See [ggsegExtra documentation](https://ggseg.github.io/ggsegExtra/)
+- **Bug reports**: Found a bug? [Open an issue](https://github.com/ggsegverse/ggseg/issues)
+- **Feature requests**: Have an idea? [Start a discussion](https://github.com/orgs/ggsegverse/discussions)
+- **Code contributions**: Check out the [contribution guidelines](https://github.com/ggsegverse/ggseg/blob/main/.github/CONTRIBUTING.md)
+- **New atlases**: Want to add a brain atlas? See [ggsegExtra documentation](https://ggsegverse.github.io/ggsegExtra/)

@@ -4,7 +4,7 @@ export function renderCorePackages(packages, container) {
       ${pkg.logo ? `<img src="${pkg.logo}" class="pkg-logo" alt="${pkg.package} logo">` : ''}
       <h3>${pkg.package}</h3>
       <div class="package-meta">
-        <a href="https://ggseg.r-universe.dev/${pkg.package}" target="_blank" class="pkg-badge">
+        <a href="https://ggsegverse.r-universe.dev/${pkg.package}" target="_blank" class="pkg-badge">
           <img src="https://img.shields.io/badge/r--universe-${pkg.version}-5e3c58" alt="r-universe">
         </a>
         ${pkg.on_cran ? `
@@ -17,7 +17,7 @@ export function renderCorePackages(packages, container) {
             <img src="https://img.shields.io/badge/★-${pkg.stars}-a8c5cb" alt="${pkg.stars} stars">
           </a>
         ` : ''}
-        <a href="https://ggseg.r-universe.dev/${pkg.package}" target="_blank" class="pkg-badge">
+        <a href="https://ggsegverse.r-universe.dev/${pkg.package}" target="_blank" class="pkg-badge">
           <img src="https://img.shields.io/badge/build-${pkg.status === 'success' ? 'passing-478f76' : 'failing-CD6689'}" alt="build ${pkg.status}">
         </a>
       </div>
@@ -36,7 +36,7 @@ export function renderAtlasPackages(packages, container) {
       ${pkg.logo ? `<img src="${pkg.logo}" class="pkg-logo" alt="${pkg.package} logo">` : ''}
       <h4>${pkg.package}</h4>
       <div class="package-meta">
-        <a href="https://ggseg.r-universe.dev/${pkg.package}" target="_blank" class="pkg-badge">
+        <a href="https://ggsegverse.r-universe.dev/${pkg.package}" target="_blank" class="pkg-badge">
           <img src="https://img.shields.io/badge/r--universe-${pkg.version}-5e3c58" alt="r-universe">
         </a>
         ${pkg.on_cran ? `
@@ -44,7 +44,7 @@ export function renderAtlasPackages(packages, container) {
             <img src="https://img.shields.io/badge/dynamic/json?url=https://crandb.r-pkg.org/${pkg.package}&query=Version&label=CRAN&color=29393e" alt="CRAN">
           </a>
         ` : ''}
-        <a href="https://ggseg.r-universe.dev/${pkg.package}" target="_blank" class="pkg-badge">
+        <a href="https://ggsegverse.r-universe.dev/${pkg.package}" target="_blank" class="pkg-badge">
           <img src="https://img.shields.io/badge/build-${pkg.status === 'success' ? 'passing-478f76' : 'failing-CD6689'}" alt="build ${pkg.status}">
         </a>
       </div>
@@ -67,7 +67,7 @@ export function renderVignettes(vignettes, container) {
     <div class="docs-package-card">
       <div class="docs-package-header">
         <h3>${pkg}</h3>
-        <a href="https://ggseg.github.io/${pkg}/" target="_blank" class="docs-site-link">
+        <a href="https://ggsegverse.github.io/${pkg}/" target="_blank" class="docs-site-link">
           Full docs &rarr;
         </a>
       </div>

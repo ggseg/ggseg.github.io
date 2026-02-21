@@ -15,18 +15,20 @@ include-after-body:
 ::: {.docs-intro}
 ## Getting Started
 
-New to ggseg? Start with these resources:
+New to ggsegverse?
+Start with these resources:
 
 ::: {.quick-links}
-- [**ggseg introduction**](https://ggseg.github.io/ggseg/articles/ggseg.html) - Learn the basics of 2D brain plotting
-- [**ggseg3d introduction**](https://ggseg.github.io/ggseg3d/articles/ggseg3d.html) - Create interactive 3D visualizations
-- [**Creating custom atlases**](https://ggseg.github.io/ggsegExtra/articles/customatlas.html) - Build your own brain atlas
+- [**ggseg introduction**](https://ggsegverse.github.io/ggseg/articles/ggseg.html) - Learn the basics of 2D brain plotting
+- [**ggseg3d introduction**](https://ggsegverse.github.io/ggseg3d/articles/ggseg3d.html) - Create interactive 3D visualizations
+- [**Creating custom atlases**](https://ggsegverse.github.io/ggsegExtra/articles/customatlas.html) - Build your own brain atlas
 :::
 :::
 
 ## Package Vignettes
 
-Browse all tutorials and articles from ggseg packages. Each card links to the full documentation site.
+Browse all tutorials and articles from ggsegverse packages.
+Each card links to the full documentation site.
 
 ::: {#vignettes}
 Loading documentation...

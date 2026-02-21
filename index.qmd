@@ -16,14 +16,20 @@ include-after-body:
 ---
 
 ::: {.hero-section}
-![](images/logo_dark.png){.hero-logo .logo-light}
-![](images/logo_light.png){.hero-logo .logo-dark}
+![ggsegverse logo](images/logo_dark.png){.hero-logo .logo-light}
+![ggsegverse logo](images/logo_light.png){.hero-logo .logo-dark}
 
-# ggseg
-
-[Visualize brain atlas data in R]{.tagline}
+[Gross Geometry Brain Segmentation Universe for R]{.tagline}
 
 [Get Started](/docs/){.btn .btn-primary}
+:::
+
+::: {.callout-warning}
+## Heads up — things may be temporarily out of sync
+
+We are rolling out a set of new features and infrastructure changes for ggsegverse.
+During this transition some packages and documentation may be briefly out of sync with each other.
+We are working to get everything aligned as quickly as possible — thanks for your patience!
 :::
 
 ## Quick Install
@@ -33,7 +39,7 @@ include-after-body:
 install.packages(
  c("ggseg", "ggseg3d", "ggsegExtra"),
  repos = c(
-   "https://ggseg.r-universe.dev",
+   "https://ggsegverse.r-universe.dev",
    "https://cloud.r-project.org"
   )
 )
@@ -41,7 +47,8 @@ install.packages(
 
 ## Core Packages {.section-header}
 
-The ggseg suite provides tools for visualizing brain atlas data in R, built on top of ggplot2 and plotly.
+The ggsegverse provides tools for visualizing brain atlas data in R.
+Built on top of ggplot2 and plotly.
 
 ::: {#core-packages-grid .package-grid}
 Loading packages...
@@ -49,7 +56,7 @@ Loading packages...
 
 ## Atlas Packages
 
-The ggseg ecosystem includes []{#atlas-count} atlas packages providing data for different brain parcellations.
+The ggsegverse ecosystem includes []{#atlas-count} atlas packages providing data for different brain parcellations.
 
 [View All Packages](/ecosystem/){.btn-gradient}
 
@@ -57,5 +64,5 @@ The ggseg ecosystem includes []{#atlas-count} atlas packages providing data for 
 
 Join the discussion and get help from the community.
 
-- [GitHub Discussions](https://github.com/orgs/ggseg/discussions) - Ask questions and share ideas
-- [GitHub Issues](https://github.com/ggseg/ggseg/issues) - Report bugs and request features
+- [GitHub Discussions](https://github.com/orgs/ggsegverse/discussions) - Ask questions and share ideas
+- [GitHub Issues](https://github.com/ggsegverse/ggseg/issues) - Report bugs and request features

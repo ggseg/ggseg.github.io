@@ -1,12 +1,12 @@
 ---
 title: "News"
-subtitle: "Updates from the ggseg project"
+subtitle: "Updates from the ggsegverse"
 listing:
   contents: posts
   sort: "date desc"
   type: default
   categories: true
   feed:
-    title: "ggseg News"
-    description: "Updates from the ggseg brain visualization project"
+    title: "ggsegverse News"
+    description: "Updates from the ggsegverse"
 ---

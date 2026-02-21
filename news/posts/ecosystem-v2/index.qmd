@@ -3,7 +3,7 @@ title: "One atlas to rule them all: ggseg 2.0"
 author: "Athanasia M. Mowinckel"
 date: "2025-02-22"
 categories: [release, announcements]
-image: /images/hex_dark.png
+image: /images/hex_light.png
 ---
 
 If you've used ggseg for any length of time, you know the ceremony.
@@ -64,7 +64,11 @@ library(ggseg)
 library(ggplot2)
 
 ggplot() +
-  geom_brain(atlas = dk, show.legend = FALSE) +
+  geom_brain(
+    atlas = dk(),
+    aes(fill = region),
+    show.legend = FALSE
+  ) +
   theme_void()
 ```
 
@@ -74,7 +78,7 @@ ggplot() +
 #| fig-alt: "Interactive 3D brain visualization showing the Desikan-Killiany atlas"
 library(ggseg3d)
 
-ggseg3d(atlas = dk) |>
+ggseg3d(atlas = dk()) |>
   pan_camera("right lateral")
 ```
 
@@ -95,7 +99,7 @@ The API is pipe-friendly:
 #| label: threejs-demo
 #| fig-cap: "Pipe-friendly 3D API with glassbrain overlay"
 #| fig-alt: "3D brain with dark background, flat shading, and translucent glassbrain overlay"
-ggseg3d(atlas = aseg) |>
+ggseg3d(atlas = aseg()) |>
   set_background("#1a1a2e") |>
   set_flat_shading() |>
   add_glassbrain() |>
@@ -114,13 +118,15 @@ The difference in rendering speed and memory is substantial.
 #| label: atlas-manipulation
 #| fig-cap: "Filtering regions and views with pipe-friendly atlas functions"
 #| fig-alt: "2D brain showing only frontal and temporal regions in lateral and medial views"
-custom_dk <- dk |>
+library(ggseg.formats)
+custom_dk <- dk() |>
   atlas_region_keep("frontal|temporal") |>
   atlas_view_keep(c("lateral", "medial"))
 
 ggplot() +
   geom_brain(
     atlas = custom_dk,
+    aes(fill = region),
     show.legend = FALSE
   ) +
   theme_void()
@@ -144,8 +150,9 @@ The `tracula` atlas — which ships with `ggseg.formats` — now carries tube ce
 #| fig-alt: "2D visualization of white matter tracts"
 ggplot() +
   geom_brain(
-    atlas = tracula,
+    atlas = tracula(),
     show.legend = FALSE,
+    aes(fill = region),
     position = position_brain(ncol = 3)
   ) +
   theme_void()
@@ -155,7 +162,7 @@ ggplot() +
 #| label: tracula-3d
 #| fig-cap: "The same tracula atlas rendered in 3D — new in v2"
 #| fig-alt: "3D visualization of white matter tracts rendered as tube meshes"
-ggseg3d(atlas = tracula) |>
+ggseg3d(atlas = tracula()) |>
   add_glassbrain() |>
   pan_camera("left lateral")
 ```
@@ -163,9 +170,39 @@ ggseg3d(atlas = tracula) |>
 Same atlas object, both renderers — just like cortical and subcortical.
 If you work with tractography data, this is probably the most visible new capability in the entire release.
 
-### ggsegExtra: rebuilt pipelines
+### Atlas data: functions, not objects
 
-The atlas creation tools in [`ggsegExtra`](https://ggseg.github.io/ggsegExtra/) were decomposed into smaller, more testable functions.
+In ggseg v1, atlas packages shipped their data as lazy-loaded objects.
+You'd type `dk` and it was just _there_ — sitting in your namespace the moment you loaded the package.
+
+That's gone.
+Atlas data now lives inside each package as internal data, accessed through exported functions.
+Where you used to write `dk`, you now write `dk()`.
+
+```r
+# ggseg v1
+library(ggseg)
+data(dk)
+geom_brain(atlas = dk)
+
+# ggseg v2
+library(ggseg)
+geom_brain(atlas = dk())
+```
+
+The parentheses matter.
+Without them, you're referencing the function itself — not the atlas it returns.
+
+Why the change?
+Lazy-loaded data objects created problems at scale — namespace collisions between packages, no control over when objects loaded, and difficulty distinguishing a data frame from an atlas sitting in your global environment.
+Functions make the contract explicit: call the function, get the atlas.
+
+This applies to every atlas in the ecosystem.
+`dk()`, `aseg()`, `tracula()`, `destrieux()`, `schaefer7_400()` — all functions now.
+
+### ggseg.extra: rebuilt pipelines
+
+The atlas creation tools in [`ggseg.extra`](https://ggseg.github.io/ggseg.extra/) were decomposed into smaller, more testable functions.
 The pipelines now support parallel processing through the [`future`](https://future.futureverse.org/) package and show progress bars via [`progressr`](https://progressr.futureverse.org/).
 The old `rgdal` dependency (which was retired from CRAN) has been replaced with [`sf`](https://r-spatial.github.io/sf/) and [`terra`](https://rspatial.github.io/terra/).
 
@@ -188,14 +225,30 @@ If you have a parcellation you'd like to see in the ecosystem, we'd love contrib
 ## What this means for you
 
 **If you use ggseg for figures in papers:**
-Your `geom_brain()` code works the same way.
-The atlas objects changed shape underneath, but the [ggplot2](https://ggplot2.tidyverse.org/) API is stable.
-Update your atlas packages to v2.0 and things should work.
-The main visible change is better-looking 3D output.
+Your `geom_brain()` calls work the same way — the only change is adding parentheses to atlas names.
+`geom_brain(atlas = dk)` becomes `geom_brain(atlas = dk())`.
+If you were using `ggseg()` directly, switch to `ggplot() + geom_brain()` — the old function is defunct.
+Update your atlas packages to v2.0, add parentheses, and things should work.
+
+Here's the common patterns you'll need to update:
+
+```r
+# v1 → v2
+
+# Atlas access
+dk            → dk()
+data(dk)      → dk()
+
+# Plotting
+ggseg(atlas = dk)  → ggplot() + geom_brain(atlas = dk())
+
+# 3D
+ggseg3d(atlas = dk_3d)  → ggseg3d(atlas = dk())
+```
 
 **If you maintain an atlas package:**
 Your package needs updating.
-The separate 2D and 3D data objects merge into one.
+The separate 2D and 3D data objects merge into one, and atlas data moves from `data/*.rda` (lazy-loaded) to `R/sysdata.rda` (internal), exposed through an exported function.
 We provide both an automated conversion function (`convert_legacy_brain_atlas()`) and instructions for recreating atlases from source FreeSurfer files.
 Recreation is preferred — it ensures all atlases share the same coordinate space and produces cleaner geometry.
 
@@ -205,8 +258,9 @@ If you haven't got one, [get in touch](https://github.com/orgs/ggseg/discussions
 :::
 
 **If you build custom atlases:**
-The new `ggsegExtra` pipelines are more modular and significantly easier to debug.
+The new `ggseg.extra` pipelines are more modular and significantly easier to debug.
 Each step in the pipeline is a standalone function you can run and inspect.
+The [contributing an atlas](https://ggseg.github.io/ggseg.extra/articles/contributing.html) vignette walks through the full workflow — from data to packaged atlas.
 
 ## The breaking changes, plainly
 
@@ -217,28 +271,29 @@ Here's what to watch for:
 ::: {.callout-warning}
 ## Watch out for these
 
-- Atlas packages jump to v2.0.0 and depend on `ggseg.formats`
-- Objects named `*_3d` no longer exist — use the base name instead
-- `ggseg3d()` returns an htmlwidget, not a plotly object
-- Old plotly-specific customization code won't transfer
+- **Atlases are functions now.** `dk` becomes `dk()`, `aseg` becomes `aseg()`, and so on. Bare names reference the function, not the data — you need the parentheses.
+- **`data()` calls are gone.** Don't call `data(dk)` — it won't work. Just call `dk()` directly.
+- **`ggseg()` is defunct.** Use `ggplot() + geom_brain()` instead.
+- **Objects named `*_3d` no longer exist.** Use the base name — `dk()` carries both 2D and 3D data.
+- **Atlas packages depend on `ggseg.formats`.** This is the new foundation package. It loads automatically when you load an atlas package.
+- **`ggseg3d()` returns an htmlwidget, not a plotly object.** Old plotly-specific customization code won't transfer.
 :::
 
-The migration isn't painful, but it isn't invisible either.
-We chose to make a clean break rather than accumulate compatibility shims that would make the codebase harder to maintain.
-We hope you can bear with us on that.
+The migration is mostly mechanical — find bare atlas names, add parentheses, swap `ggseg()` for `geom_brain()`.
+We chose to make a clean break rather than accumulate compatibility shims that would make the codebase harder to maintain long-term.
 
 ## What's next
 
 The core packages are available now from [r-universe](https://ggseg.r-universe.dev).
 Atlas packages are being converted — some are already on v2.0, others are in progress.
-CRAN submissions are underway, but since there is a dependency of the packages in a specific order, it's going to take a little while for all the core packages to get there.
+ggseg.formats, ggseg, and ggseg3d have all been accepted on CRAN in their new state, and we hope to ship ggseg.extra over the next week.
 
 If you hit issues, [open a discussion](https://github.com/orgs/ggseg/discussions) or file an issue on the relevant package repository.
 We'd rather hear about problems early than have people silently stuck.
 
 ```r
 install.packages(
-  c("ggseg.formats", "ggseg", "ggseg3d"),
+  c("ggseg.formats", "ggseg", "ggseg3d", "ggseg.extra"),
   repos = c(
     "https://ggseg.r-universe.dev",
     "https://cloud.r-project.org"

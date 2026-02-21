@@ -1,22 +1,24 @@
 ---
-title: "Welcome to the ggseg website"
+title: "Welcome to the ggsegverse website"
 author: "Athanasia M. Mowinckel"
 date: "2024-02-07"
 categories: [news, announcements]
 image: /images/hex_dark.png
 ---
 
-Welcome to the new ggseg website. This site provides documentation, resources, and news about the ggseg suite of R packages for brain atlas visualization.
+Welcome to the new ggsegverse website.
+This site provides documentation, resources, and news about the ggsegverse R packages for brain atlas visualization.
 
 ## Why brain atlas visualization?
 
-Neuroimaging research frequently involves mapping statistical results onto brain regions defined by anatomical or functional atlases. Whether you're showing which brain areas respond to a task, where structural differences exist between groups, or how connectivity patterns vary across individuals, visualizing these results on a brain surface helps communicate findings clearly.
+Neuroimaging research frequently involves mapping statistical results onto brain regions defined by anatomical or functional atlases.
+Whether you're showing which brain areas respond to a task, where structural differences exist between groups, or how connectivity patterns vary across individuals, visualizing these results on a brain surface helps communicate findings clearly.
 
-The ggseg suite brings brain atlas visualization into the tidyverse ecosystem, making it easy to create publication-ready figures with the familiar grammar of graphics.
+The ggsegverse brings brain atlas visualization into the tidyverse ecosystem, making it easy to create publication-ready figures with the familiar grammar of graphics.
 
-## What is ggseg?
+## What is ggsegverse?
 
-The ggseg ecosystem consists of three layers:
+The ggsegverse consists of three layers:
 
 **Core packages** provide the visualization engine:
 
@@ -24,9 +26,11 @@ The ggseg ecosystem consists of three layers:
 - **ggseg3d** - Interactive 3D brain atlas plots using plotly
 - **ggsegExtra** - Tools for creating and validating custom atlases
 
-**Atlas packages** distribute brain atlas data as installable R packages. Each atlas package contains polygon data for 2D plots and/or mesh data for 3D visualization.
+**Atlas packages** distribute brain atlas data as installable R packages.
+Each atlas package contains polygon data for 2D plots and/or mesh data for 3D visualization.
 
-**Atlases** are the individual brain parcellations within each package. A single package might contain multiple related atlases (e.g., different resolutions or variants).
+**Atlases** are the individual brain parcellations within each package.
+A single package might contain multiple related atlases (e.g., different resolutions or variants).
 
 ## Example: 2D visualization
 
@@ -45,9 +49,11 @@ ggplot() +
 ```
 
 Map your own data by joining it to the atlas:
+
 ```{r}
 #| label: ggseg-data
 #| fig-cap: "Mapping custom data to brain regions"
+#| fig-alt: "2D brain atlas with six regions colored by p-value using the inferno palette"
 library(dplyr)
 
 someData <- tibble(
@@ -90,7 +96,7 @@ ggseg3d(atlas = dk) |>
 
 ## The atlas ecosystem
 
-The ggseg ecosystem includes atlases covering:
+The ggsegverse includes atlases covering:
 
 - **Cortical parcellations** - Desikan-Killiany, Destrieux, Glasser, Schaefer, and more
 - **Subcortical structures** - aseg
@@ -107,7 +113,7 @@ Install the core packages from R-universe:
 install.packages(
   c("ggseg", "ggseg3d", "ggsegExtra"),
   repos = c(
-    "https://ggseg.r-universe.dev",
+    "https://ggsegverse.r-universe.dev",
     "https://cloud.r-project.org"
   )
 )
@@ -119,7 +125,7 @@ Then install any atlas packages you need:
 install.packages(
   "ggsegYeo2011",
   repos = c(
-    "https://ggseg.r-universe.dev",
+    "https://ggsegverse.r-universe.dev",
     "https://cloud.r-project.org"
   )
 )
@@ -129,6 +135,6 @@ Check out the [documentation](/docs/) for tutorials and vignettes.
 
 ## Stay updated
 
-- Follow [GitHub Discussions](https://github.com/orgs/ggseg/discussions) for community help and announcements
+- Follow [GitHub Discussions](https://github.com/orgs/ggsegverse/discussions) for community help and announcements
 - Report issues on individual package repositories
 - Star the repos to show support

@@ -1,6 +1,6 @@
 meta:
-  name: ggseg
-  link: https://ggseg.github.io
+  name: ggsegverse
+  link: https://ggsegverse.github.io
 
 color:
   palette:
@@ -33,21 +33,28 @@ color:
 
 
 logo:
+  small:
+    light: images/submark_dark.png
+    dark: images/submark_light.png
   medium:
     light: images/logo_dark.png
     dark: images/logo_light.png
 
 typography:
   fonts:
+    - family: Montserrat
+      source: google
     - family: Inter
       source: google
-    - family: JetBrains Mono
+    - family: Fira Code
       source: google
+  base: Inter
+  headings: Montserrat
   link:
     color:
       light: teal-dark
       dark: teal-light
-  monospace: JetBrains Mono
+  monospace: Fira Code
   monospace-block:
     background-color:
       light: mauve
