@@ -42,6 +42,13 @@ logo:
 
 typography:
   fonts:
+    - family: Nelphim
+      source: file
+      files:
+        - path: fonts/Nelphim.woff2
+          weight: normal
+        - path: fonts/Nelphim.woff
+          weight: normal
     - family: Montserrat
       source: google
     - family: Inter

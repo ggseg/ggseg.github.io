@@ -2,7 +2,8 @@
 title: "News"
 subtitle: "Updates from the ggsegverse"
 listing:
-  contents: posts
+  contents:
+    - "*/index.qmd"
   sort: "date desc"
   type: default
   categories: true
