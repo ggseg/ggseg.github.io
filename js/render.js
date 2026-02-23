@@ -106,10 +106,6 @@ export function renderAtlases(atlases, container) {
         <code class="atlas-code">${atlas.name}</code>
       </div>
       <div class="atlas-footer">
-        <div class="atlas-formats">
-          ${atlas.has2d ? '<img src="https://img.shields.io/badge/2D-ggseg-5e3c58" alt="2D">' : ''}
-          ${atlas.has3d ? '<img src="https://img.shields.io/badge/3D-ggseg3d-29393e" alt="3D">' : ''}
-        </div>
         <span class="atlas-package-label">${atlas.package}</span>
       </div>
     </div>

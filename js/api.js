@@ -73,40 +73,25 @@ export async function getContributors() {
 
 export async function getAtlases() {
   const packages = await fetchPackages();
-  const atlasMap = new Map();
+  const atlases = [];
 
   for (const pkg of packages) {
     if (!pkg.Package.startsWith('ggseg')) continue;
-    const datasets = pkg._datasets || [];
-    const helpPages = (pkg._help || []).map(h => h.page);
+    const helpPages = pkg._help || [];
 
-    for (const ds of datasets) {
-      const is3d = ds.class?.includes('ggseg3d_atlas');
-      const is2d = ds.class?.includes('brain_atlas');
-      if (!is2d && !is3d) continue;
+    for (const h of helpPages) {
+      if (h.concept !== 'ggseg_atlases') continue;
 
-      const baseName = ds.name.replace(/_3d$/, '');
-
-      if (!atlasMap.has(baseName)) {
-        const hasDocsPage = helpPages.includes(baseName);
-        atlasMap.set(baseName, {
-          name: baseName,
-          title: ds.title,
-          package: pkg.Package,
-          has2d: false,
-          has3d: false,
-          docsUrl: hasDocsPage ? `https://ggsegverse.github.io/${pkg.Package}/reference/${baseName}.html` : null
-        });
-      }
-
-      const atlas = atlasMap.get(baseName);
-      if (is2d) atlas.has2d = true;
-      if (is3d) atlas.has3d = true;
+      atlases.push({
+        name: h.page,
+        title: h.title,
+        package: pkg.Package,
+        docsUrl: `https://ggsegverse.github.io/${pkg.Package}/reference/${h.page}.html`
+      });
     }
   }
 
-  return Array.from(atlasMap.values())
-    .sort((a, b) => a.name.localeCompare(b.name));
+  return atlases.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 function transformPackage(pkg) {
