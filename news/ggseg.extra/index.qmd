@@ -31,6 +31,8 @@ The new version breaks each pipeline into discrete, inspectable steps.
 If something fails at step 5, you can see exactly what step 5 did, fix your input, and re-run from there.
 No more staring at a single function that does fifteen things and fails somewhere in the middle.
 
+Full documentation can be found on the [ggseg.extra website](https://ggsegverse.github.io/ggseg.extra/index.html), but we'll cover some of the major changes here.
+
 ### New input formats
 
 Version 1 only understood FreeSurfer annotation files.
