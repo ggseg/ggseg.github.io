@@ -191,6 +191,28 @@ body.quarto-dark .logo-light {
   font-size: 0.875rem;
 }
 
+.python-section {
+  margin: 2rem 0;
+}
+
+.python-card {
+  border-color: #3572A5 !important;
+}
+
+.python-pkg-title {
+  color: #3572A5 !important;
+}
+
+.experimental-badge {
+  display: inline-block;
+  background: $brand-warning;
+  color: $brand-teal-dark;
+  padding: 0.2rem 0.6rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
 .contributor-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));

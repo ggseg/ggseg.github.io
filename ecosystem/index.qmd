@@ -42,6 +42,36 @@ The foundational packages for brain atlas visualization in R.
 Loading packages...
 :::
 
+## Python {.section-header}
+
+::: {.python-section}
+
+::: {.package-card .python-card}
+
+### ggsegpy {.python-pkg-title}
+
+::: {.package-meta}
+<span class="experimental-badge">Experimental</span>
+<a href="https://github.com/ggsegverse/ggsegpy" target="_blank" class="pkg-badge">
+  <img src="https://img.shields.io/github/v/release/ggsegverse/ggsegpy?label=GitHub&color=3572A5" alt="GitHub release">
+</a>
+:::
+
+Brain atlas visualization in Python using [plotnine](https://plotnine.org){target="_blank"} and [Plotly](https://plotly.com/python/){target="_blank"}.
+Supports 2D and 3D brain plots with Desikan-Killiany, aseg, and TRACULA atlases.
+
+```bash
+pip install ggsegpy
+```
+
+::: {.links}
+[GitHub](https://github.com/ggsegverse/ggsegpy){target="_blank"}
+:::
+
+:::
+
+:::
+
 ## Brain Atlases {.section-header}
 
 The ggsegverse provides <span id="atlas-count">...</span> brain atlases for visualization, each available as 2D polygons and/or 3D meshes.
