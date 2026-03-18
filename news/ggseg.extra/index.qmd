@@ -1,7 +1,7 @@
 ---
 title: "ggseg.extra: we need your brains (to test it)"
 author: "Athanasia M. Mowinckel"
-date: "2026-03-19"
+date: "2026-03-18"
 categories: [news, announcements]
 image: logo.png
 ---
