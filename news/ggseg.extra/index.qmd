@@ -95,6 +95,8 @@ For atlases with many regions, this makes a real difference.
 ```r
 library(future)
 plan(multisession, workers = 4)
+progressr::handlers("cli")
+progressr::handlers(global = TRUE)
 
 # Progress bars show up automatically
 atlas <- create_cortical_from_annotation(
