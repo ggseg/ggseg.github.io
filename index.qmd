@@ -1,6 +1,12 @@
 ---
 toc: false
 page-layout: full
+listing:
+  - id: latest-news
+    contents: news/*/index.qmd
+    sort: "date desc"
+    type: default
+    max-items: 1
 include-after-body:
   - text: |
       <script type="module">
@@ -10,7 +16,10 @@ include-after-body:
         const coreContainer = document.getElementById('core-packages-grid');
         const atlasCount = document.getElementById('atlas-count');
 
-        getCorePackages().then(pkgs => renderCorePackages(pkgs, coreContainer));I
+        getCorePackages().then(pkgs => {
+          coreContainer.classList.add('fade-in-up');
+          renderCorePackages(pkgs, coreContainer);
+        });
         getAtlasPackages().then(pkgs => { atlasCount.textContent = pkgs.length; });
       </script>
 ---
@@ -22,47 +31,153 @@ include-after-body:
 [Gross Geometry Brain Segmentation Universe]{.tagline}
 
 [Get Started](/docs/){.btn .btn-primary}
+[Browse Atlases](/ecosystem/){.btn .btn-outline-light}
 :::
 
-::: {.callout-warning}
-## Heads up — things may be temporarily out of sync
+::: {.hero-preview}
 
-We are rolling out a set of new features and infrastructure changes for ggsegverse.
-During this transition some packages and documentation may be briefly out of sync with each other.
-We are working to get everything aligned as quickly as possible — thanks for your patience!
+::::: {.hero-code}
+```r
+library(ggseg)
+library(ggplot2)
+
+ggplot() +
+  geom_brain(
+    atlas = dk(),
+    aes(fill = region),
+    position = position_brain(hemi ~ view),
+    show.legend = FALSE
+  ) +
+  theme_void()
+```
+:::::
+
+::::: {.hero-result}
+```{r}
+#| label: hero-plot
+#| echo: false
+#| fig-alt: "2D brain atlas showing the Desikan-Killiany parcellation"
+#| dev.args: { bg: "transparent" }
+library(ggseg)
+library(ggplot2)
+
+ggplot() +
+  geom_brain(
+    atlas = dk(),
+    aes(fill = region),
+    position = position_brain(hemi ~ view),
+    show.legend = FALSE
+  ) +
+  theme_void() +
+  theme(
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    panel.background = element_rect(fill = "transparent", colour = NA)
+  )
+```
+:::::
+
 :::
 
+::: {.content-section}
 ## Quick Install
 
 ```r
 # Install from R-universe
 install.packages(
- c("ggseg", "ggseg3d", "ggsegExtra"),
+ c("ggseg", "ggseg3d", "ggseg.extra"),
  repos = c(
-   "https://ggsegverse.r-universe.dev",
+   "https://ggseg.r-universe.dev",
    "https://cloud.r-project.org"
   )
 )
 ```
-
-## Core Packages {.section-header}
-
-The ggsegverse provides tools for visualizing brain atlas data in R.
-Built on top of ggplot2 and plotly.
-
-::: {#core-packages-grid .package-grid}
-Loading packages...
 :::
 
+::: {.content-section-alt}
+## Core Packages {.section-header}
+
+The ggsegverse provides tools for visualizing brain atlas data in R and Python.
+Built on top of ggplot2 and Three.js.
+
+::: {#core-packages-grid .package-grid}
+<div class="skeleton-grid">
+<div class="skeleton-card"><div class="skeleton-line short"></div><div class="skeleton-line"></div><div class="skeleton-line medium"></div><div class="skeleton-line"></div></div>
+<div class="skeleton-card"><div class="skeleton-line short"></div><div class="skeleton-line"></div><div class="skeleton-line medium"></div><div class="skeleton-line"></div></div>
+<div class="skeleton-card"><div class="skeleton-line short"></div><div class="skeleton-line"></div><div class="skeleton-line medium"></div><div class="skeleton-line"></div></div>
+</div>
+:::
+:::
+
+::: {.content-section}
 ## Atlas Packages
 
 The ggsegverse ecosystem includes []{#atlas-count} atlas packages providing data for different brain parcellations.
 
 [View All Packages](/ecosystem/){.btn-gradient}
+:::
 
-## Community
+::: {.content-section-alt}
+## Latest News {.section-header}
+
+::: {#latest-news}
+:::
+
+[All News](/news/){.btn-gradient}
+:::
+
+::: {.content-section}
+## Community {.section-header}
 
 Join the discussion and get help from the community.
 
-- [GitHub Discussions](https://github.com/orgs/ggsegverse/discussions) - Ask questions and share ideas
-- [GitHub Issues](https://github.com/ggsegverse/ggseg/issues) - Report bugs and request features
+::: {.community-grid}
+```{=html}
+<a href="https://github.com/orgs/ggsegverse/discussions" target="_blank" class="community-card">
+<span class="community-icon">💬</span>
+<div>
+<h4>Discussions</h4>
+<p>Ask questions, share ideas, and connect with other users</p>
+</div>
+</a>
+<a href="https://github.com/ggsegverse/ggseg/issues" target="_blank" class="community-card">
+<span class="community-icon">🐛</span>
+<div>
+<h4>Issue Tracker</h4>
+<p>Report bugs and request new features</p>
+</div>
+</a>
+```
+:::
+:::
+
+::: {.content-section-alt}
+## Want to Contribute? {.section-header}
+
+There are many ways to help grow the ggsegverse.
+
+::: {.community-grid}
+```{=html}
+<a href="https://github.com/orgs/ggsegverse/discussions/categories/atlas-wishlist" target="_blank" class="community-card">
+<span class="community-icon">🧠</span>
+<div>
+<h4>Atlas Wishlist</h4>
+<p>Browse requested brain atlases and help implement one</p>
+</div>
+</a>
+<a href="https://github.com/search?q=org%3Aggsegverse+is%3Aissue+is%3Aopen&type=issues" target="_blank" class="community-card">
+<span class="community-icon">🔧</span>
+<div>
+<h4>Open Issues</h4>
+<p>Find issues to work on across the ggsegverse</p>
+</div>
+</a>
+<a href="https://github.com/ggsegverse/.github/blob/main/CONTRIBUTING.md" target="_blank" class="community-card">
+<span class="community-icon">🤝</span>
+<div>
+<h4>Contributing Guide</h4>
+<p>How to contribute code, atlases, or documentation</p>
+</div>
+</a>
+```
+:::
+:::

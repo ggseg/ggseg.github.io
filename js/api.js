@@ -1,5 +1,5 @@
 const API_URL = 'https://ggsegverse.r-universe.dev/api/packages';
-const CORE_PACKAGES = ['ggseg', 'ggseg3d', 'ggsegExtra'];
+const CORE_PACKAGES = ['ggseg', 'ggseg3d', 'ggseg.formats', 'ggseg.extra'];
 
 let cachedData = null;
 

@@ -7,7 +7,7 @@ project:
 
 website:
   title: "ggsegverse"
-  description: "Gross Geometry Brain Segmentation Universe for R"
+  description: "Gross Geometry Brain Segmentation Universe"
   site-url: https://ggsegverse.github.io
   repo-url: https://github.com/ggsegverse/ggsegverse.github.io
   repo-actions: [edit, issue]
@@ -18,14 +18,20 @@ website:
     left:
       - text: "Ecosystem"
         href: ecosystem/index.qmd
+      - text: "Playground"
+        href: playground/index.qmd
       - text: "Docs"
         href: docs/index.qmd
-      - text: "Contributors"
-        href: contributors/index.qmd
-      - text: "Funding"
-        href: funding/index.qmd
       - text: "News"
         href: news/index.qmd
+      - text: "About"
+        menu:
+          - text: "Research using ggseg"
+            href: citations/index.qmd
+          - text: "Contributors"
+            href: contributors/index.qmd
+          - text: "Funding"
+            href: funding/index.qmd
     right:
       - icon: rss
         href: news/index.xml
