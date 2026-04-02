@@ -38,21 +38,22 @@ Cerebellar atlases work with `geom_brain()` exactly like cortical or subcortical
 The atlas type determines the rendering — you don't need to think about it.
 
 ```{r}
-#| label: flatmap-anatom
-#| fig-alt: "2D flatmap of the cerebellar cortex showing the Diedrichsen anatomical lobule parcellation with 28 colored regions"
-#| fig-cap: "The Diedrichsen anatomical lobule atlas rendered as a SUIT flatmap."
+#| label: flatmap-suit
+#| fig-alt: "2D flatmap of the cerebellar cortex showing the SUIT anatomical lobule parcellation with 28 colored regions"
+#| fig-cap: "The SUIT anatomical lobule atlas rendered as a flatmap."
 library(ggseg)
+library(ggsegSUIT)
 library(ggsegCerebellum)
 library(ggplot2)
 
 ggplot() +
   geom_brain(
-    atlas = anatom(),
+    atlas = suit(),
     mapping = aes(fill = label),
     show.legend = FALSE
   ) +
   scale_fill_manual(
-    values = anatom()$palette,
+    values = suit()$palette,
     na.value = "grey80"
   ) +
   theme_void()
@@ -74,11 +75,11 @@ Cerebellar atlases use vertex-based coloring on the SUIT surface — each region
 
 ```{r}
 #| label: cerebellum-3d
-#| fig-alt: "Interactive 3D rendering of the cerebellar cortex with the Diedrichsen anatomical lobule atlas colored by region"
-#| fig-cap: "The anatomical lobule atlas in 3D. Rotate to explore."
+#| fig-alt: "Interactive 3D rendering of the cerebellar cortex with the SUIT anatomical lobule atlas colored by region"
+#| fig-cap: "The SUIT anatomical lobule atlas in 3D. Rotate to explore."
 library(ggseg3d)
 
-ggseg3d(atlas = anatom()) |>
+ggseg3d(atlas = suit()) |>
   pan_camera("superior")
 ```
 
@@ -87,15 +88,15 @@ These structures don't live on the SUIT surface, so ggseg3d renders them as sepa
 
 ### Multiple atlases out of the box
 
-The [`ggsegCerebellum`](https://ggsegverse.github.io/ggsegCerebellum/) package ships eight atlases from the Diedrichsen Lab's [cerebellar atlas collection](https://github.com/DiedrichsenLab/cerebellar_atlases):
+The anatomical lobule atlas lives in [`ggsegSUIT`](https://ggsegverse.github.io/ggsegSUIT/), while [`ggsegCerebellum`](https://ggsegverse.github.io/ggsegCerebellum/) ships seven functional and task-based parcellations from the Diedrichsen Lab's [cerebellar atlas collection](https://github.com/DiedrichsenLab/cerebellar_atlases):
 
 ```{r}
 #| label: atlas-gallery
-#| fig-alt: "Grid of four cerebellar flatmaps showing anatomical lobules, Buckner 7-network, Nettekoven 32-region, and MDTB 10-region parcellations side by side"
-#| fig-cap: "Four of the eight cerebellar atlases available in ggsegCerebellum."
+#| fig-alt: "Grid of four cerebellar flatmaps showing SUIT anatomical lobules, Buckner 7-network, Nettekoven 32-region, and MDTB 10-region parcellations side by side"
+#| fig-cap: "Four cerebellar atlases: SUIT anatomical lobules plus three functional parcellations from ggsegCerebellum."
 library(patchwork)
 
-p1 <- plot(anatom()) + ggtitle("Anatomical lobules")
+p1 <- plot(suit()) + ggtitle("SUIT lobules")
 p2 <- plot(buckner7()) + ggtitle("Buckner 7-network")
 p3 <- plot(nettekoven32()) + ggtitle("Nettekoven 32")
 p4 <- plot(mdtb10()) + ggtitle("MDTB 10")
@@ -103,9 +104,9 @@ p4 <- plot(mdtb10()) + ggtitle("MDTB 10")
 (p1 + p2) / (p3 + p4)
 ```
 
-The full set:
+The full set across both packages:
 
-- **`anatom()`** — Diedrichsen anatomical lobules (28 regions)
+- **`ggsegSUIT::suit()`** — SUIT anatomical lobules and deep nuclei (34 regions)
 - **`buckner7()`** — Buckner 7-network functional parcellation
 - **`buckner17()`** — Buckner 17-network functional parcellation
 - **`ji10()`** — Ji 10-network subcortical parcellation
@@ -226,7 +227,7 @@ In the meantime, install everything from [r-universe](https://ggseg.r-universe.d
 
 ```r
 install.packages(
-  c("ggseg.formats", "ggseg", "ggseg3d", "ggseg.extra", "ggsegCerebellum"),
+  c("ggseg.formats", "ggseg", "ggseg3d", "ggseg.extra", "ggsegSUIT", "ggsegCerebellum"),
   repos = c(
     "https://ggseg.r-universe.dev",
     "https://cloud.r-project.org"
