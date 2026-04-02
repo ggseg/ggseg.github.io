@@ -3,7 +3,7 @@ title: "The cerebellum enters the chat"
 author: "Athanasia M. Mowinckel"
 date: "2026-04-02"
 categories: [release, announcements]
-image: /images/hex_light.png
+image: index_files/figure-html/flatmap-suit-1.png
 ---
 
 For six years, ggseg has been the cortex-and-subcortex show.
@@ -85,6 +85,18 @@ ggseg3d(atlas = suit()) |>
 
 Some cerebellar parcellations include deep nuclei — the Dentate, Interposed, and Fastigial nuclei buried inside the cerebellar white matter.
 These structures don't live on the SUIT surface, so ggseg3d renders them as separate meshes, with the surface drawn at reduced opacity to let you see through to the nuclei underneath.
+
+The SUIT atlas includes all six deep nuclei (Dentate, Interposed, and Fastigial, bilaterally).
+When these are present, the cortical surface becomes translucent so the nuclei are visible inside:
+
+```{r}
+#| label: deep-nuclei-3d
+#| fig-alt: "Interactive 3D rendering of the cerebellum with translucent cortical surface revealing deep cerebellar nuclei (Dentate, Interposed, Fastigial) as opaque colored meshes inside"
+#| fig-cap: "Deep cerebellar nuclei rendered inside a translucent SUIT surface. The Dentate nucleus is the largest structure visible."
+ggseg3d(atlas = suit()) |>
+  set_background("#1a1a2e") |>
+  pan_camera("left lateral")
+```
 
 ### Multiple atlases out of the box
 
