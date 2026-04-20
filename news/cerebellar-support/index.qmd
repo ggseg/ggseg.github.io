@@ -12,7 +12,7 @@ That tightly folded structure tucked under the occipital lobe, containing more n
 Not supported.
 
 That changes now.
-ggseg 2.0 ships full cerebellar atlas support across the entire ecosystem — 2D flatmaps, interactive 3D rendering, and a pipeline for building your own cerebellar atlases from scratch.
+The ggsegverse now ships full cerebellar atlas support across the entire ecosystem — 2D flatmaps, interactive 3D rendering, and a pipeline for building your own cerebellar atlases from scratch.
 
 ## Why it took this long
 
