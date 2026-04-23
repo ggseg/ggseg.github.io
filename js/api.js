@@ -80,7 +80,7 @@ export async function getAtlases() {
     const helpPages = pkg._help || [];
 
     for (const h of helpPages) {
-      if (h.concept !== 'ggseg_atlases') continue;
+      if (!h.concept?.includes('ggseg_atlases')) continue;
 
       atlases.push({
         name: h.page,
