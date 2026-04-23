@@ -1,0 +1,306 @@
+---
+title: "One atlas to rule them all: ggseg 2.0"
+author: "Athanasia M. Mowinckel"
+date: "2025-02-22"
+categories: [release, announcements]
+image: /images/hex_light.png
+---
+
+If you've used ggseg for any length of time, you know the ceremony.
+You load [`ggseg`](https://ggseg.github.io/ggseg/) for your 2D figures.
+You load [`ggseg3d`](https://ggseg.github.io/ggseg3d/) for the 3D ones.
+You remember that the 2D atlas is called `dk`, but the 3D version is `dk_3d`.
+You keep both objects in your head, hoping they agree on region names.
+They usually do.
+Usually.
+
+That entire dance is over.
+ggseg 2.0 ships a single, unified atlas format that works for both 2D and 3D visualization.
+One object.
+Both renderers.
+No suffix juggling.
+
+## Smaller atlases, faster everything
+
+The old atlas format stored full 3D mesh geometry per region.
+Every cortical region carried its own copy of vertex coordinates and face indices — duplicating data that was mostly shared across the brain surface.
+Subcortical structures stored dense meshes straight from the segmentation.
+White matter tracts had no 3D representation at all.
+
+The new format rethinks storage for each atlas type:
+
+**Cortical atlases** store integer vertex indices instead of mesh geometry.
+Each region is just a vector of integers pointing into a shared fsaverage5 template mesh (10,242 vertices per hemisphere).
+The mesh itself lives once in `ggseg.formats`, not in every atlas package.
+The size difference is dramatic — a list of integers vs. thousands of duplicated 3D coordinates.
+
+**Subcortical atlases** use decimated meshes.
+The raw marching-cubes output from volumetric segmentation is simplified to a fraction of the original face count while preserving shape.
+Smaller objects, faster rendering, same visual quality.
+
+**Tract atlases** now have 3D support for the first time.
+Centerline geometry extracted from tractography streamlines is stored as tube centerlines rather than raw meshes.
+This is entirely new — tracts in ggseg v1 were 2D only.
+
+The practical result: atlas packages shrink, install faster, and render faster.
+Plotting a cortical atlas in 3D loads one shared mesh and colors vertices by index lookup instead of assembling dozens of separate meshes.
+That's a win at every level — package size on disk, download time, memory at runtime, and time to first plot.
+
+## What actually changed
+
+Four packages were rewritten or substantially reworked.
+Here's what happened and why it matters.
+
+### A new foundation: ggseg.formats
+
+The biggest structural change is a new package called [`ggseg.formats`](https://ggseg.github.io/ggseg.formats/) that defines a single `ggseg_atlas` S3 class.
+Every atlas — cortical, subcortical, or white matter tract — now lives in one object that carries everything both renderers need: [sf](https://r-spatial.github.io/sf/) geometries for 2D plotting, vertex indices or meshes for 3D, region metadata, and a color palette.
+
+```{r}
+#| label: unified-2d
+#| fig-cap: "The dk atlas rendered in 2D with geom_brain()"
+#| fig-alt: "2D brain atlas visualization showing lateral and medial views of both hemispheres"
+library(ggseg)
+library(ggplot2)
+
+ggplot() +
+  geom_brain(
+    atlas = dk(),
+    aes(fill = region),
+    show.legend = FALSE
+  ) +
+  theme_void()
+```
+
+```{r}
+#| label: unified-3d
+#| fig-cap: "The same dk atlas rendered in 3D"
+#| fig-alt: "Interactive 3D brain visualization showing the Desikan-Killiany atlas"
+library(ggseg3d)
+
+ggseg3d(atlas = dk()) |>
+  pan_camera("right lateral")
+```
+
+The separate `_3d` objects are gone.
+If your code references `dk_3d` or `aseg_3d`, it will need updating — but the change is mechanical and the error messages will tell you what to do.
+
+### ggseg3d: from plotly to Three.js
+
+The 3D renderer was rebuilt from scratch.
+[plotly](https://plotly.com/r/) served well for years, but it struggled with the size of brain meshes and gave limited control over rendering.
+Plotly has also been [retiring its R documentation and support](https://github.com/plotly/plotly.R/issues/2456), focusing resources on Python — not a foundation we want to build on going forward.
+The new engine uses [Three.js](https://threejs.org/) through [htmlwidgets](https://www.htmlwidgets.org/), which means better performance, lower memory use, and a proper API for controlling the scene.
+
+New capabilities include orthographic projection, glassbrain overlays, flat shading for exact color matching, edge rendering for region boundaries, and standard anatomical camera positions.
+The API is pipe-friendly:
+
+```{r}
+#| label: threejs-demo
+#| fig-cap: "Pipe-friendly 3D API with glassbrain overlay"
+#| fig-alt: "3D brain with dark background, flat shading, and translucent glassbrain overlay"
+ggseg3d(atlas = aseg()) |>
+  set_background("#1a1a2e") |>
+  set_flat_shading() |>
+  add_glassbrain() |>
+  pan_camera("left lateral")
+```
+
+Cortical atlases now use vertex-based coloring on a shared hemisphere mesh instead of rendering separate meshes per region.
+For a typical cortical atlas, this means loading one mesh of 10,242 vertices per hemisphere rather than dozens of individual region meshes.
+The difference in rendering speed and memory is substantial.
+
+### Atlas manipulation
+
+[`ggseg.formats`](https://ggseg.github.io/ggseg.formats/) includes a set of pipe-friendly functions for working with atlases directly, without reaching for [dplyr](https://dplyr.tidyverse.org/):
+
+```{r}
+#| label: atlas-manipulation
+#| fig-cap: "Filtering regions and views with pipe-friendly atlas functions"
+#| fig-alt: "2D brain showing only frontal and temporal regions in lateral and medial views"
+library(ggseg.formats)
+custom_dk <- dk() |>
+  atlas_region_keep("frontal|temporal") |>
+  atlas_view_keep(c("lateral", "medial"))
+
+ggplot() +
+  geom_brain(
+    atlas = custom_dk,
+    aes(fill = region),
+    show.legend = FALSE
+  ) +
+  theme_void()
+```
+
+You can filter, rename, and reorder regions and views.
+You can mark regions as contextual (drawn in grey but excluded from legends).
+These operations return valid atlas objects, so you can pass the result straight to `geom_brain()` or `ggseg3d()`.
+
+### White matter tracts in 3D
+
+Tract atlases were 2D-only in ggseg v1.
+You could plot them as flat line drawings, but there was no way to render them in 3D.
+
+That changes with v2.
+The `tracula` atlas — which ships with `ggseg.formats` — now carries tube centerline geometry that `ggseg3d` renders as 3D streamlines:
+
+```{r}
+#| label: tracula-2d
+#| fig-cap: "The tracula atlas in 2D"
+#| fig-alt: "2D visualization of white matter tracts"
+ggplot() +
+  geom_brain(
+    atlas = tracula(),
+    show.legend = FALSE,
+    aes(fill = region),
+    position = position_brain(ncol = 3)
+  ) +
+  theme_void()
+```
+
+```{r}
+#| label: tracula-3d
+#| fig-cap: "The same tracula atlas rendered in 3D — new in v2"
+#| fig-alt: "3D visualization of white matter tracts rendered as tube meshes"
+ggseg3d(atlas = tracula()) |>
+  add_glassbrain() |>
+  pan_camera("left lateral")
+```
+
+Same atlas object, both renderers — just like cortical and subcortical.
+If you work with tractography data, this is probably the most visible new capability in the entire release.
+
+### Atlas data: functions, not objects
+
+In ggseg v1, atlas packages shipped their data as lazy-loaded objects.
+You'd type `dk` and it was just _there_ — sitting in your namespace the moment you loaded the package.
+
+That's gone.
+Atlas data now lives inside each package as internal data, accessed through exported functions.
+Where you used to write `dk`, you now write `dk()`.
+
+```r
+# ggseg v1
+library(ggseg)
+data(dk)
+geom_brain(atlas = dk)
+
+# ggseg v2
+library(ggseg)
+geom_brain(atlas = dk())
+```
+
+The parentheses matter.
+Without them, you're referencing the function itself — not the atlas it returns.
+
+Why the change?
+Lazy-loaded data objects created problems at scale — namespace collisions between packages, no control over when objects loaded, and difficulty distinguishing a data frame from an atlas sitting in your global environment.
+Functions make the contract explicit: call the function, get the atlas.
+
+This applies to every atlas in the ecosystem.
+`dk()`, `aseg()`, `tracula()`, `destrieux()`, `schaefer7_400()` — all functions now.
+
+### ggseg.extra: rebuilt pipelines
+
+The atlas creation tools in [`ggseg.extra`](https://ggseg.github.io/ggseg.extra/) were decomposed into smaller, more testable functions.
+The pipelines now support parallel processing through the [`future`](https://future.futureverse.org/) package and show progress bars via [`progressr`](https://progressr.futureverse.org/).
+The old `rgdal` dependency (which was retired from CRAN) has been replaced with [`sf`](https://r-spatial.github.io/sf/) and [`terra`](https://rspatial.github.io/terra/).
+
+Creation functions are named by atlas type and input format:
+
+- `create_cortical_from_annotation()` builds from [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/) annotation files
+- `create_cortical_from_labels()` builds from FreeSurfer label files
+- `create_cortical_from_gifti()` builds from GIFTI label files
+- `create_cortical_from_cifti()` builds from CIFTI dense label files
+- `create_cortical_from_neuromaps()` builds from neuromaps annotations
+- `create_subcortical_from_volume()` builds from volumetric segmentation files
+- `create_tract_from_tractography()` builds from tractography streamlines
+- `create_wholebrain_from_volume()` is a new and experimental pipeline, building from whole-brain volumetric parcellation files
+
+All produce unified `ggseg_atlas` objects directly.
+
+::: {.callout-tip}
+## Contribute your own atlas
+We hope these new pipelines make it possible for more people to create and share their own atlases.
+If you have a parcellation you'd like to see in the ecosystem, we'd love contributions.
+:::
+
+
+## What this means for you
+
+**If you use ggseg for figures in papers:**
+Your `geom_brain()` calls work the same way — the only change is adding parentheses to atlas names.
+`geom_brain(atlas = dk)` becomes `geom_brain(atlas = dk())`.
+If you were using `ggseg()` directly, switch to `ggplot() + geom_brain()` — the old function is defunct.
+Update your atlas packages to v2.0, add parentheses, and things should work.
+
+Here's the common patterns you'll need to update:
+
+```r
+# v1 → v2
+
+# Atlas access
+dk            → dk()
+data(dk)      → dk()
+
+# Plotting
+ggseg(atlas = dk)  → ggplot() + geom_brain(atlas = dk())
+
+# 3D
+ggseg3d(atlas = dk_3d)  → ggseg3d(atlas = dk())
+```
+
+**If you maintain an atlas package:**
+Your package needs updating.
+The separate 2D and 3D data objects merge into one, and atlas data moves from `data/*.rda` (lazy-loaded) to `R/sysdata.rda` (internal), exposed through an exported function.
+We provide both an automated conversion function (`convert_legacy_brain_atlas()`) and instructions for recreating atlases from source FreeSurfer files.
+Recreation is preferred — it ensures all atlases share the same coordinate space and produces cleaner geometry.
+
+::: {.callout-note}
+PR's to all _known_ ggseg-atlases are already shipped.
+If you haven't got one, [get in touch](https://github.com/orgs/ggseg/discussions).
+:::
+
+**If you build custom atlases:**
+The new `ggseg.extra` pipelines are more modular and significantly easier to debug.
+Each step in the pipeline is a standalone function you can run and inspect.
+The [contributing an atlas](https://ggseg.github.io/ggseg.extra/articles/contributing.html) vignette walks through the full workflow — from data to packaged atlas.
+
+## The breaking changes, plainly
+
+This is a major version bump.
+Things will break.
+Here's what to watch for:
+
+::: {.callout-warning}
+## Watch out for these
+
+- **Atlases are functions now.** `dk` becomes `dk()`, `aseg` becomes `aseg()`, and so on. Bare names reference the function, not the data — you need the parentheses.
+- **`data()` calls are gone.** Don't call `data(dk)` — it won't work. Just call `dk()` directly.
+- **`ggseg()` is defunct.** Use `ggplot() + geom_brain()` instead.
+- **Objects named `*_3d` no longer exist.** Use the base name — `dk()` carries both 2D and 3D data.
+- **Atlas packages depend on `ggseg.formats`.** This is the new foundation package. It loads automatically when you load an atlas package.
+- **`ggseg3d()` returns an htmlwidget, not a plotly object.** Old plotly-specific customization code won't transfer.
+:::
+
+The migration is mostly mechanical — find bare atlas names, add parentheses, swap `ggseg()` for `geom_brain()`.
+We chose to make a clean break rather than accumulate compatibility shims that would make the codebase harder to maintain long-term.
+
+## What's next
+
+The core packages are available now from [r-universe](https://ggseg.r-universe.dev).
+Atlas packages are being converted — some are already on v2.0, others are in progress.
+ggseg.formats, ggseg, and ggseg3d have all been accepted on CRAN in their new state, and we hope to ship ggseg.extra over the next week.
+
+If you hit issues, [open a discussion](https://github.com/orgs/ggseg/discussions) or file an issue on the relevant package repository.
+We'd rather hear about problems early than have people silently stuck.
+
+```r
+install.packages(
+  c("ggseg.formats", "ggseg", "ggseg3d", "ggseg.extra"),
+  repos = c(
+    "https://ggseg.r-universe.dev",
+    "https://cloud.r-project.org"
+  )
+)
+```

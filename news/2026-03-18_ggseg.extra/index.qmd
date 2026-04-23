@@ -1,0 +1,155 @@
+---
+title: "ggseg.extra: we need your brains (to test it)"
+author: "Athanasia M. Mowinckel"
+date: "2026-03-18"
+categories: [news, announcements]
+image: logo.png
+---
+
+The rest of the ggseg ecosystem hit CRAN a few weeks ago.
+ggseg.extra is the last piece, and before we submit it, we want people to break it.
+
+If you've ever built a custom brain atlas — or wanted to but gave up because the old pipeline was opaque — this post is for you.
+Install the dev version, try the new pipelines on your data, and tell us what goes wrong.
+
+```r
+install.packages(
+  "ggseg.extra",
+  repos = c(
+    "https://ggseg.r-universe.dev",
+    "https://cloud.r-project.org"
+  )
+)
+```
+
+## What changed
+
+ggseg.extra 2.0 is a near-complete rewrite of the atlas creation pipelines.
+The old code kind-of worked, but it was monolithic — one giant function per atlas type, hard to debug, harder to extend.
+
+The new version breaks each pipeline into discrete, inspectable steps.
+If something fails at step 5, you can see exactly what step 5 did, fix your input, and re-run from there.
+No more staring at a single function that does fifteen things and fails somewhere in the middle.
+
+Full documentation can be found on the [ggseg.extra website](https://ggsegverse.github.io/ggseg.extra/index.html), but we'll cover some of the major changes here.
+
+### New input formats
+
+Version 1 only understood FreeSurfer annotation files.
+That was fine if your parcellation happened to live in that format, and frustrating if it didn't.
+
+Version 2 reads:
+
+- **FreeSurfer annotations** (`.annot`) — same as before, now faster
+- **FreeSurfer labels** (`.label`) — individual region files
+- **GIFTI** (`.label.gii`) — the surface format used by Connectome Workbench and many HCP derivatives
+- **CIFTI** (`.dlabel.nii`) — dense label files, common in HCP and multimodal pipelines
+- **Neuromaps** — surface and volume annotations from the [neuromaps](https://netneurolab.github.io/neuromaps/) project
+- **Volumetric parcellations** — NIfTI files for subcortical and whole-brain atlases
+- **Tractography** (`.trk`, `.tck`) — TrackVis and MRtrix streamline files for white-matter tract atlases
+
+Each format has its own `create_*` function, so you know exactly which one to reach for:
+
+```r
+library(ggseg.extra)
+
+# FreeSurfer annotation
+atlas <- create_cortical_from_annotation(
+  subject = "bert",
+  annot = "aparc"
+)
+
+# GIFTI labels
+atlas <- create_cortical_from_gifti(
+  lh_gii = "lh.mylabels.label.gii",
+  rh_gii = "rh.mylabels.label.gii"
+)
+
+# Whole-brain from a volumetric parcellation
+atlas <- create_wholebrain_from_volume(
+  volume = "my_parcellation.nii.gz",
+  color_lut = "my_colors.ctab"
+)
+```
+
+All of them produce unified `ggseg_atlas` objects that work directly with `geom_brain()` and `ggseg3d()`.
+
+### White-matter tracts
+
+This is entirely new.
+If you have tractography data — streamlines from probabilistic or deterministic tracking — you can now turn them into a ggseg atlas with 2D and 3D support.
+
+```r
+atlas <- create_tract_from_tractography(
+  trk_files = list.files("tracts/", full.names = TRUE),
+  format = "trk"
+)
+```
+
+The pipeline extracts centerline geometry from streamline bundles, builds tube meshes for 3D rendering, and generates 2D projections.
+Same atlas object, both renderers — consistent with the rest of the v2 ecosystem.
+
+### Parallel processing and progress
+
+The pipelines support parallel execution through the [future](https://future.futureverse.org/) framework and show progress via [progressr](https://progressr.futureverse.org/).
+For atlases with many regions, this makes a real difference.
+
+```r
+library(future)
+plan(multisession, workers = 4)
+progressr::handlers("cli")
+progressr::handlers(global = TRUE)
+
+# Progress bars show up automatically
+atlas <- create_cortical_from_annotation(
+  subject = "bert",
+  annot = "aparc"
+)
+```
+
+All parallel operations are protected against the multicore fork crashes that plagued the old version on macOS.
+
+### Cleaner dependencies
+
+The old version pulled in `rgdal` (retired from CRAN), `reticulate` (for Python-based snapshots via kaleido), `purrr`, and `tidyr`.
+All of those are gone.
+
+- `rgdal` → replaced by `sf` and `terra`
+- `reticulate`/kaleido → replaced by `chromote` (headless Chrome, no Python needed)
+- `purrr` and `tidyr` → removed entirely
+
+Fewer moving parts, fewer things that can break during installation.
+
+## What we need from you
+
+We're specifically looking for people to test:
+
+1. **GIFTI and CIFTI pipelines** — these are new and we've tested them against HCP data, but parcellation files in the wild vary more than you'd think
+2. **Whole-brain volumetric pipeline** — this is experimental and we want to know how it handles different parcellation schemes
+3. **Tractography pipeline** — tested with TrackVis and MRtrix output, but streamline files come in many flavours
+4. **Your weird edge cases** — unusual parcellations, non-standard label names, atlases with very few or very many regions
+
+You don't need to be a developer.
+If you can install the package, point it at your data, and tell us what happened, that's exactly what we need.
+
+### How to report
+
+If something breaks or behaves unexpectedly, open an issue on [GitHub](https://github.com/ggseg/ggseg.extra/issues) with:
+
+- The `create_*` function you called and its arguments
+- The error message or unexpected output
+- The output of `setup_sitrep()` (this checks your system dependencies)
+
+If things work perfectly, we'd love to hear that too — it helps us know which paths are solid.
+
+```r
+# Check your system is ready
+ggseg.extra::setup_sitrep()
+```
+
+## Timeline
+
+We're aiming to submit to CRAN within the next few weeks.
+The more testing we get now, the fewer surprises after submission.
+
+Thanks for helping us get this right.
