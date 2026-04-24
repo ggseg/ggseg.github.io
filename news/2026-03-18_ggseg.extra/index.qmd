@@ -4,6 +4,8 @@ author: "Athanasia M. Mowinckel"
 date: "2026-03-18"
 categories: [news, announcements]
 image: logo.png
+aliases: 
+  - ggseg.extra
 ---
 
 The rest of the ggseg ecosystem hit CRAN a few weeks ago.

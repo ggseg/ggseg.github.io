@@ -680,6 +680,39 @@ body.quarto-dark .atlas-dataset-card:hover {
   color: var(--bs-secondary-color);
 }
 
+$atlas-type-colors: (
+  cortical: $brand-teal-dark,
+  subcortical: $brand-plum,
+  cerebellar: $brand-warning,
+  tract: $brand-success,
+  unknown: var(--bs-secondary-color)
+);
+
+@each $type, $color in $atlas-type-colors {
+  .atlas-dataset-card.atlas-type-#{$type} {
+    border-left-color: $color;
+  }
+
+  .atlas-type-badge-#{$type} {
+    background: transparentize($color: if(type-of($color) == color, $color, $brand-teal-dark), $amount: 0.85);
+    color: if(type-of($color) == color, $color, var(--bs-secondary-color));
+  }
+}
+
+body.quarto-dark {
+  .atlas-type-badge-cortical { color: $brand-teal-light; }
+  .atlas-type-badge-subcortical { color: $brand-mauve; }
+}
+
+.atlas-type-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 1rem;
+}
+
 // ── Funding ─────────────────────────────────────────────
 
 .funding-category {

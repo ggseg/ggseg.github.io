@@ -98,7 +98,7 @@ export function renderContributors(contributors, container) {
 
 export function renderAtlases(atlases, container) {
   container.innerHTML = atlases.map((atlas, i) => `
-    <div class="atlas-dataset-card fade-in-up" style="animation-delay: ${Math.min(i * 0.03, 0.5)}s">
+    <div class="atlas-dataset-card atlas-type-${atlas.type || 'unknown'} fade-in-up" style="animation-delay: ${Math.min(i * 0.03, 0.5)}s">
       <div class="atlas-header">
         ${atlas.docsUrl
           ? `<a href="${atlas.docsUrl}" target="_blank" class="atlas-title-link">${atlas.title}</a>`
@@ -108,6 +108,7 @@ export function renderAtlases(atlases, container) {
       </div>
       <div class="atlas-footer">
         <span class="atlas-package-label">${atlas.package}</span>
+        ${atlas.type ? `<span class="atlas-type-badge atlas-type-badge-${atlas.type}">${atlas.type}</span>` : ''}
       </div>
     </div>
   `).join('');

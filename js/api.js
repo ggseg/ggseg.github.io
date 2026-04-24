@@ -71,6 +71,13 @@ export async function getContributors() {
     }));
 }
 
+const TYPE_CONCEPTS = {
+  cortical_atlases: 'cortical',
+  subcortical_atlases: 'subcortical',
+  cerebellar_atlases: 'cerebellar',
+  tract_atlases: 'tract'
+};
+
 export async function getAtlases() {
   const packages = await fetchPackages();
   const atlases = [];
@@ -80,12 +87,16 @@ export async function getAtlases() {
     const helpPages = pkg._help || [];
 
     for (const h of helpPages) {
-      if (!h.concept?.includes('ggseg_atlases')) continue;
+      const concepts = Array.isArray(h.concept) ? h.concept : (h.concept ? [h.concept] : []);
+      if (!concepts.includes('ggseg_atlases')) continue;
+
+      const type = concepts.map(c => TYPE_CONCEPTS[c]).find(Boolean) || null;
 
       atlases.push({
         name: h.page,
         title: h.title,
         package: pkg.Package,
+        type,
         docsUrl: `https://ggsegverse.github.io/${pkg.Package}/reference/${h.page}.html`
       });
     }

@@ -4,6 +4,8 @@ author: "Athanasia M. Mowinckel"
 date: "2025-02-22"
 categories: [release, announcements]
 image: /images/hex_light.png
+aliases: 
+  - ecosystem-v2
 ---
 
 If you've used ggseg for any length of time, you know the ceremony.

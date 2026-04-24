@@ -27,7 +27,8 @@ include-after-body:
           const query = e.target.value.toLowerCase().trim();
           const filtered = allAtlases.filter(atlas =>
             atlas.title.toLowerCase().includes(query) ||
-            atlas.name.toLowerCase().includes(query)
+            atlas.name.toLowerCase().includes(query) ||
+            (atlas.type && atlas.type.includes(query))
           );
           renderAtlases(filtered, atlasContainer);
           document.getElementById('atlas-count').textContent = filtered.length;
@@ -54,7 +55,7 @@ The ggsegverse provides <span id="atlas-count">...</span> brain atlases for visu
 
 ::: {.atlas-search-box}
 <label for="atlas-search">Filter atlases</label>
-<input type="text" id="atlas-search" placeholder="Search by name..." />
+<input type="text" id="atlas-search" placeholder="Search by name or type (cortical, subcortical, cerebellar, tract)..." />
 :::
 
 ::: {#atlases-grid .atlas-dataset-grid}

@@ -4,6 +4,8 @@ author: "Athanasia M. Mowinckel"
 date: "2024-02-07"
 categories: [news, announcements]
 image: /images/hex_dark.png
+aliases: 
+  - welcome
 ---
 
 Welcome to the new ggsegverse website.
