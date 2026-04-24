@@ -51,11 +51,11 @@ typography:
           weight: normal
     - family: Montserrat
       source: google
-    - family: Inter
+    - family: Source Serif 4
       source: google
     - family: Fira Code
       source: google
-  base: Inter
+  base: Source Serif 4
   headings: Montserrat
   link:
     color:

@@ -1,29 +1,30 @@
 export function renderCorePackages(packages, container) {
-  container.innerHTML = packages.map(pkg => `
-    <div class="package-card">
+  container.innerHTML = packages.map((pkg, i) => `
+    <div class="package-card" style="animation-delay: ${i * 0.08}s">
       ${pkg.logo ? `<img src="${pkg.logo}" class="pkg-logo" alt="${pkg.package} logo">` : ''}
       <h3>${pkg.package}</h3>
       <div class="package-meta">
-        <a href="https://ggsegverse.r-universe.dev/${pkg.package}" target="_blank" class="pkg-badge">
-          <img src="https://img.shields.io/badge/r--universe-${pkg.version}-5e3c58" alt="r-universe">
+        <span class="lang-badge lang-badge-r">R</span>
+        <a href="https://ggsegverse.r-universe.dev/${pkg.package}" target="_blank">
+          <span class="version">${pkg.version}</span>
         </a>
         ${pkg.on_cran ? `
-          <a href="https://cran.r-project.org/package=${pkg.package}" target="_blank" class="pkg-badge">
-            <img src="https://img.shields.io/badge/dynamic/json?url=https://crandb.r-pkg.org/${pkg.package}&query=Version&label=CRAN&color=29393e" alt="CRAN">
+          <a href="https://cran.r-project.org/package=${pkg.package}" target="_blank">
+            <span class="cran-badge">CRAN</span>
           </a>
         ` : ''}
         ${pkg.stars ? `
-          <a href="${pkg.github_url}/stargazers" target="_blank" class="pkg-badge">
-            <img src="https://img.shields.io/badge/★-${pkg.stars}-a8c5cb" alt="${pkg.stars} stars">
+          <a href="${pkg.github_url}/stargazers" target="_blank">
+            <span class="stars-badge">&#9733; ${pkg.stars}</span>
           </a>
         ` : ''}
-        <a href="https://ggsegverse.r-universe.dev/${pkg.package}" target="_blank" class="pkg-badge">
-          <img src="https://img.shields.io/badge/build-${pkg.status === 'success' ? 'passing-478f76' : 'failing-CD6689'}" alt="build ${pkg.status}">
-        </a>
+        <span class="status-badge status-${pkg.status === 'success' ? 'passing' : 'failing'}">
+          ${pkg.status === 'success' ? 'passing' : 'failing'}
+        </span>
       </div>
       <p class="description">${pkg.description || pkg.title}</p>
       <div class="links">
-        <a href="${pkg.pkgdown_url}" target="_blank">Docs</a> |
+        <a href="${pkg.pkgdown_url}" target="_blank">Docs</a>
         <a href="${pkg.github_url}" target="_blank">GitHub</a>
       </div>
     </div>
@@ -31,25 +32,25 @@ export function renderCorePackages(packages, container) {
 }
 
 export function renderAtlasPackages(packages, container) {
-  container.innerHTML = packages.map(pkg => `
-    <div class="atlas-card">
+  container.innerHTML = packages.map((pkg, i) => `
+    <div class="atlas-card" style="animation-delay: ${i * 0.05}s">
       ${pkg.logo ? `<img src="${pkg.logo}" class="pkg-logo" alt="${pkg.package} logo">` : ''}
       <h4>${pkg.package}</h4>
       <div class="package-meta">
-        <a href="https://ggsegverse.r-universe.dev/${pkg.package}" target="_blank" class="pkg-badge">
-          <img src="https://img.shields.io/badge/r--universe-${pkg.version}-5e3c58" alt="r-universe">
+        <a href="https://ggsegverse.r-universe.dev/${pkg.package}" target="_blank">
+          <span class="version">${pkg.version}</span>
         </a>
         ${pkg.on_cran ? `
-          <a href="https://cran.r-project.org/package=${pkg.package}" target="_blank" class="pkg-badge">
-            <img src="https://img.shields.io/badge/dynamic/json?url=https://crandb.r-pkg.org/${pkg.package}&query=Version&label=CRAN&color=29393e" alt="CRAN">
+          <a href="https://cran.r-project.org/package=${pkg.package}" target="_blank">
+            <span class="cran-badge">CRAN</span>
           </a>
         ` : ''}
-        <a href="https://ggsegverse.r-universe.dev/${pkg.package}" target="_blank" class="pkg-badge">
-          <img src="https://img.shields.io/badge/build-${pkg.status === 'success' ? 'passing-478f76' : 'failing-CD6689'}" alt="build ${pkg.status}">
-        </a>
+        <span class="status-badge status-${pkg.status === 'success' ? 'passing' : 'failing'}">
+          ${pkg.status === 'success' ? 'passing' : 'failing'}
+        </span>
       </div>
       <div class="links">
-        <a href="${pkg.pkgdown_url}" target="_blank">Docs</a> |
+        <a href="${pkg.pkgdown_url}" target="_blank">Docs</a>
         <a href="${pkg.github_url}" target="_blank">GitHub</a>
       </div>
     </div>
@@ -96,8 +97,8 @@ export function renderContributors(contributors, container) {
 }
 
 export function renderAtlases(atlases, container) {
-  container.innerHTML = atlases.map(atlas => `
-    <div class="atlas-dataset-card">
+  container.innerHTML = atlases.map((atlas, i) => `
+    <div class="atlas-dataset-card atlas-type-${atlas.type || 'unknown'} fade-in-up" style="animation-delay: ${Math.min(i * 0.03, 0.5)}s">
       <div class="atlas-header">
         ${atlas.docsUrl
           ? `<a href="${atlas.docsUrl}" target="_blank" class="atlas-title-link">${atlas.title}</a>`
@@ -107,6 +108,7 @@ export function renderAtlases(atlases, container) {
       </div>
       <div class="atlas-footer">
         <span class="atlas-package-label">${atlas.package}</span>
+        ${atlas.type ? `<span class="atlas-type-badge atlas-type-badge-${atlas.type}">${atlas.type}</span>` : ''}
       </div>
     </div>
   `).join('');

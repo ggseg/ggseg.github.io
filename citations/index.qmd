@@ -1,0 +1,48 @@
+---
+title: "Research using ggseg"
+subtitle: "Studies citing ggseg in their work"
+include-after-body:
+  - text: |
+      <script type="module">
+        import { getCitingWorks, renderCitations } from '../js/citations.js';
+
+        const container = document.getElementById('citations-grid');
+        const countEl = document.getElementById('citation-count');
+        const searchInput = document.getElementById('citation-search');
+        let allWorks = [];
+
+        getCitingWorks().then(works => {
+          allWorks = works;
+          container.classList.add('fade-in-up');
+          renderCitations(works, container, countEl);
+        });
+
+        searchInput.addEventListener('input', (e) => {
+          const query = e.target.value.toLowerCase().trim();
+          const filtered = allWorks.filter(w => {
+            const authors = (w.authorships || []).map(a => a.author?.display_name || '').join(' ').toLowerCase();
+            const title = (w.title || '').toLowerCase();
+            const journal = (w.primary_location?.source?.display_name || '').toLowerCase();
+            const year = (w.publication_date || '').substring(0, 4);
+            return title.includes(query) || authors.includes(query) || journal.includes(query) || year.includes(query);
+          });
+          renderCitations(filtered, container, countEl);
+        });
+      </script>
+---
+
+<span id="citation-count">...</span> studies have cited ggseg in their research.
+Data sourced from [OpenAlex](https://openalex.org/){target="_blank"}, updated live.
+
+::: {.atlas-search-box}
+<label for="citation-search">Filter studies</label>
+<input type="text" id="citation-search" placeholder="Search by title, author, journal, or year..." />
+:::
+
+::: {#citations-grid .citations-grid}
+<div class="skeleton-grid">
+<div class="skeleton-card"><div class="skeleton-line medium"></div><div class="skeleton-line short"></div></div>
+<div class="skeleton-card"><div class="skeleton-line medium"></div><div class="skeleton-line short"></div></div>
+<div class="skeleton-card"><div class="skeleton-line medium"></div><div class="skeleton-line short"></div></div>
+</div>
+:::
