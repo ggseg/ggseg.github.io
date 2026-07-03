@@ -1,0 +1,208 @@
+---
+title: "sf is now optional: ggseg installs (almost) anywhere"
+author: "Athanasia M. Mowinckel"
+date: "2026-06-24"
+categories: [release, announcements]
+image: index_files/figure-html/same-plot-1.png
+aliases:
+  - sf-optional
+---
+
+If you've ever tried to install ggseg and watched it fall over with a wall of
+red about GDAL, GEOS, or PROJ, this post is for you.
+
+For years, the heaviest thing about ggseg wasn't ggseg. It was `sf` --- the
+package we leaned on to store and draw brain region geometry. `sf` is excellent,
+but it sits on top of three system libraries (GDAL, GEOS, and PROJ) that have to
+be present and compilable on your machine before you can install it. On a
+well-loved laptop, that's usually fine. On a locked-down work machine, a shared
+HPC cluster, or anything running in a browser, it's exactly where installs go to
+die.
+
+As of **ggseg 2.2.1** and **ggseg.formats 0.0.4**, `sf` is optional. ggseg now
+draws brains from a lightweight polygon representation by default, and it
+installs and plots without GDAL, GEOS, or PROJ anywhere in sight.
+
+## The short version
+
+Here's the bit most people care about: **your code doesn't change.**
+
+```{r}
+#| label: same-plot
+#| fig-alt: >-
+#|   2D brain plot of the Desikan-Killiany cortical atlas, lateral and medial
+#|   views of both hemispheres, each region filled with its own colour
+#| fig-cap: >-
+#|   The Desikan-Killiany atlas drawn with geom_brain() — exact same code as
+#|   before, now rendered without sf.
+
+library(ggseg)
+library(ggplot2)
+
+ggplot() +
+  geom_brain(
+    atlas = dk(),
+    mapping = aes(fill = region),
+    show.legend = FALSE,
+    position = position_brain(hemi ~ view)
+  ) +
+  theme_void()
+```
+
+That's the same `geom_brain()` you've always written, producing the same figure
+it always has --- only now there's no `sf` underneath it. `position_brain()` and
+`annotate_brain()` are unchanged too. If you never thought about `sf` while
+using ggseg, you can keep not thinking about it, and your installs just got a
+lot less fragile.
+
+## Why `sf` was the sticking point
+
+To draw a brain region, ggseg needs the polygon that traces its outline.
+Historically those polygons lived in `sf` objects, which meant that simply
+*holding the data* pulled in the whole geospatial stack.
+
+That stack is wonderful when you're doing real GIS work. For ggseg, though, we
+were paying a steep installation cost for a fraction of what `sf` offers --- we
+mostly just needed to store coordinates and hand them to `geom_polygon()`.
+
+The problem shows up hardest in three places:
+
+- **Locked-down systems.** Corporate and clinical machines where you can't
+  `apt install libgdal-dev`, and IT isn't going to do it for you.
+- **HPC clusters.** Where the system libraries exist but are the wrong version,
+  or compiling them eats an afternoon you didn't have.
+- **WebAssembly.** Tools like [webR](https://docs.r-wasm.org/webr/latest/) and
+  [shinylive](https://posit-dev.github.io/r-shinylive/) run R entirely in the
+  browser --- no server, no install --- but they can't build GDAL/GEOS/PROJ at
+  all. `sf` simply doesn't go there.
+
+That last case is genuinely new --- every earlier version of ggseg was locked
+out of the browser by `sf`. With `sf` off the hard-dependency path, ggseg should
+finally run there --- think live teaching materials, interactive documentation,
+and demos where a student plots a brain without installing a single thing.
+
+## What we actually changed
+
+Under the hood, atlas geometry now has two possible homes, and they convert
+between each other losslessly:
+
+- A new **`brain_polygons`** representation --- a tidy nested table of region
+  coordinates that `geom_polygon()` can draw directly.
+- The familiar **`sf`** representation, for when you have `sf` and want the full
+  geospatial toolkit.
+
+The conversion between them uses
+[`sfheaders`](https://dcooley.github.io/sfheaders/), which is pure C++ (Rcpp)
+with no system-library baggage. So `sfheaders` joins the hard dependencies, and
+**`sf` moves from `Imports` to `Suggests`** in both ggseg and ggseg.formats. The
+geometry round-trips perfectly, so nothing is lost --- the polygon path and the
+`sf` path describe the same brains down to the coordinate.
+
+## Reaching into the geometry
+
+Two representations raises a fair question: how do you tell which one an atlas
+is carrying, and how do you get the geometry out --- without rummaging through
+`atlas$data` yourself?
+
+There's a small set of accessors for exactly that. `atlas_geometry_type()`
+reports which representation an atlas holds, with `is_atlas_sf()` and
+`is_atlas_polygon()` as the quick yes/no versions. `atlas_polygons()` hands you
+the polygon table --- no `sf` required --- and `atlas_sf()` hands you the `sf`
+geometry, converting from polygons on the fly when that's all the atlas has.
+
+```{r}
+#| label: polygons
+
+library(ggseg.formats)
+
+atlas_geometry_type(dk())
+is_atlas_polygon(dk())
+
+polys <- atlas_polygons(dk())
+```
+
+If you write code on top of ggseg --- an atlas package, an analysis pipeline,
+anything that touches atlas geometry --- reach for these accessors rather than
+the internal `atlas$data` slots. They keep working whichever representation an
+atlas ships, now or after it migrates, and they're the boundary we actually
+maintain.
+
+## When you *do* want sf
+
+Optional doesn't mean gone. If you've installed `sf`, everything it gave you is
+still there --- you just opt in.
+
+The most common reason to reach for it is layering other `sf` geoms on top of a
+brain, like adding region labels:
+
+```{r}
+#| label: sf
+
+library(sf)
+
+atlas_sf <- as_sf_atlas(dk())
+labels <- as.data.frame(atlas_sf) |> 
+  head(10)
+ggplot() +
+  geom_brain(
+    atlas = atlas_sf, 
+    show.legend = FALSE,
+    hemi = "left") +
+  geom_sf_label(
+    data = labels,
+    aes(label = region),
+    size = 2
+  )
+```
+
+`as_sf_atlas()` converts any atlas to its `sf` form on demand, and from there
+you're back in full `ggplot2::geom_sf()` territory. There's a
+`vignette("geom-sf")` walking through it if you want the details.
+
+### A note on the sf-backed geoms
+
+The old `sf`-specific drawing functions, `geom_brain_sf()` and
+`position_brain_sf()`, are there to give you the same plot as before using sf,
+but are **deprecated**. They'll stick around for a transition period and then be
+removed in a future release.
+
+## If you maintain an atlas package
+
+This is the one group that needs to do a little work. The bundled atlases
+(`dk()`, `aseg()`, `tracula()`, `suit()`) already ship in the new format, so
+they need `sf` for nothing. But if you maintain one of the many `ggseg*` atlas
+packages, your `data/*.rda` files still carry `sf` geometry --- which means a
+user without `sf` installed can't draw your atlas yet.
+
+Migrating is genuinely a three-line job. ggseg.formats ships a helper and a
+dedicated guide:
+
+```r
+library(ggseg.formats)
+
+migrate_atlas_files("data")
+```
+
+`vignette("migrating-atlases")` in ggseg.formats walks through the whole recipe.
+Once you've migrated and re-released, your atlas installs and plots on the same
+wasm-and-locked-down systems the core packages now reach. If a user does hit a
+still-`sf`-backed atlas on a machine without `sf`, ggseg.formats now errors with
+a clear message pointing them (and you) straight at `migrate_atlas_files()`,
+instead of a cryptic "sf is required".
+
+## The bigger picture
+
+We build ggseg so people can show their brain data without fighting their tools.
+A dependency that fails to compile is the most frustrating kind of barrier ---
+you haven't even started your analysis and you're already stuck.
+
+Making `sf` optional pulls that barrier out of the way for the people who hit it
+hardest: students on managed laptops, researchers on clusters, and anyone who
+wants to teach or demo ggseg in a browser tab. And it does it without asking the
+rest of you to change a single line.
+
+If you install ggseg somewhere it never used to work --- a wasm notebook, a
+stubborn cluster, a laptop you don't have admin on --- we'd love to hear about
+it. Open a [discussion](https://github.com/orgs/ggsegverse/discussions) or file
+an [issue](https://github.com/ggsegverse/ggseg/issues) if anything behaves
+unexpectedly.
